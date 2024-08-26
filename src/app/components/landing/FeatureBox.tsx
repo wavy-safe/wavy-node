@@ -6,10 +6,10 @@ interface FeatureBoxProps {
 export default function FeatureBox({ title, description }: FeatureBoxProps) {
   return (
     <div className="p-4 text-center">
-      <h2 className="font-semibold text-xl bg-blue-300 p-2 rounded">
+      <h2 className="bg-gray-800 text-white text-center text-lg py-2 px-5 rounded-full inline-block">
         {title}
       </h2>
-      <p>{description}</p>
+      <p className="mt-2 text-gray-700">{description}</p>
     </div>
   );
 }
