@@ -8,7 +8,7 @@ export default function Header() {
       <h1 className="text-3xl font-medium text-gray-800">Wavy Node</h1>
       
       <button className="bg-gray-800 text-white text-sm py-2 px-4 rounded-full hover:bg-gray-700 hover:shadow-lg transition duration-300 ease-in-out transform hover:scale-105">
-        Alpha
+       <a href="https://tally.so/r/3XEAed?transparentBackground=1">Alpha</a> 
       </button>
     </header>
   );
