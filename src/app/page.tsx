@@ -1,6 +1,6 @@
-import Header from "./components/landing/Header";
-import MainContent from "./components/landing/MainContent";
-import Footer from './components/landing/Footer';
+import Header from "./component/landing/Header";
+import MainContent from "./component/landing/MainContent";
+import Footer from './component/landing/Footer';
 
 export default function Home() {
   return (
