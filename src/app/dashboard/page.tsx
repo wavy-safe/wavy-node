@@ -1,8 +1,11 @@
+import TransactionSearch from './TransactionSearch';
 
-export default function Dashboard () {
-  return(
-    <h1>perrito</h1>
 
+export default function Dashboard() {
+  return (
+    <>
+      <h1>perrito</h1>
+     
+    </>
   );
-  
 }
