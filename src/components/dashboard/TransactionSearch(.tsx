@@ -2,6 +2,7 @@ import { Input } from 'shadcn/input';
 import { Button } from 'shadcn/button';
 
 
+
 export default function TransactionSearch() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">

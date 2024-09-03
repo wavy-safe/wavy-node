@@ -1,11 +1,8 @@
-import TransactionSearch from './TransactionSearch';
-
 
 export default function Dashboard() {
   return (
-    <div>
-      <h1>perrito</h1>
-      
-  </div>
+ <div className='flex items-center '>
+  <h1>dead </h1>
+ </div>
   );
 }
