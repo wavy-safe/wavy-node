@@ -12,6 +12,8 @@ export default function Dashboard({
     <div className='grid min-h-screen w-full'></div>
     {/** Dashboard Sidebar */}
     <DashboardNav />
-    {/**  */}
+    {/** Dashboard content*/}
+    
+
 ;
 }
