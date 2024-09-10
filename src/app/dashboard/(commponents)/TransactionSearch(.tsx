@@ -1,17 +1,19 @@
-import { Input } from 'shadcn/input';
-import { Button } from 'shadcn/button';
-
-
+import { Input } from "shadcn/input";
+import { Button } from "shadcn/button";
 
 export default function TransactionSearch() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100">
       {/* Header */}
-      <div className="flex flex-col items-center mb-8">
-        <img src="/path/to/logo.png" alt="Logo" className="h-12 mb-4" />
+      <div className="flex flex-col items-center mb-8 border-b-2 border-gray-300 pb-4 w-full">
+        <img
+          src="/path/to/logo.png"
+          alt="WavyNode Logo"
+          className="h-12 mb-4"
+        />
         <h1 className="text-4xl font-semibold text-gray-800">Wavy Node</h1>
       </div>
-      
+
       {/* Search Bar */}
       <div className="w-full max-w-md">
         <div className="flex items-center">
@@ -28,9 +30,6 @@ export default function TransactionSearch() {
           Find the status of an address
         </p>
       </div>
-
-      {/* Footer */}
-    
     </div>
   );
 }
