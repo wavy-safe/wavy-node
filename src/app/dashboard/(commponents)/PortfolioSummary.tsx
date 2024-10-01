@@ -23,6 +23,7 @@ export default function PortfolioSummary({
   address,
   ens,
   status,
+  hola,
   tags,
   latestDapps,
   latestTransactions,
