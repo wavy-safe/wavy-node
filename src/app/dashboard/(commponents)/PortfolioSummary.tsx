@@ -14,19 +14,18 @@ type PortfolioSummaryProps = {
   address: string;
   ens: string;
   status: string;
-  tags: string[];
-  latestDapps: Transaction[];
-  latestTransactions: Transaction[];
+  tags: string[] | undefined;
+  latestDapps: Transaction[] | undefined;
+  latestTransactions: Transaction[] | undefined;
 };
 
 export default function PortfolioSummary({
   address,
   ens,
   status,
-  hola,
-  tags,
-  latestDapps,
-  latestTransactions,
+  tags = [], // Valor por defecto
+  latestDapps = [], // Valor por defecto
+  latestTransactions = [], // Valor por defecto
 }: PortfolioSummaryProps) {
   return (
     <Card className="p-6">
@@ -43,20 +42,22 @@ export default function PortfolioSummary({
       </CardHeader>
 
       <CardContent>
+        {/* Sección de Tags */}
         <div className="mb-4">
           <CardTitle>Tags</CardTitle>
           <div className="flex gap-2">
-            {tags.map((tag, index) => (
+            {tags?.map((tag, index) => (
               <Badge key={index}>{tag}</Badge>
             ))}
           </div>
         </div>
 
+        {/* Últimas dApps */}
         <div className="flex justify-between">
           <div className="w-1/2">
             <CardTitle>Latest interacted dApps</CardTitle>
             <ScrollArea className="h-32">
-              {latestDapps.map((dapp, index) => (
+              {latestDapps?.map((dapp, index) => (
                 <div
                   key={index}
                   className="flex items-center justify-between py-2"
@@ -77,10 +78,11 @@ export default function PortfolioSummary({
             </ScrollArea>
           </div>
 
+          {/* Últimas transacciones */}
           <div className="w-1/2">
             <CardTitle>Latest transactions</CardTitle>
             <ScrollArea className="h-32">
-              {latestTransactions.map((transaction, index) => (
+              {latestTransactions?.map((transaction, index) => (
                 <div
                   key={index}
                   className="flex items-center justify-between py-2"
