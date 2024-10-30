@@ -20,10 +20,7 @@ export default function MainContent() {
         </div>
 
         <div className="mt-6">
-          <FeatureBox
-            title="Accurate Detection of Connections with dApps"
-            description="We identify illicit funds and analyze their route to dApps, ensuring comprehensive, real-time monitoring."
-          />
+          <FeatureBox title="Accurate Detection of Connections with dApps" />
         </div>
 
         <div className="text-center mt-8">
