@@ -7,19 +7,20 @@ export default function MainContent() {
       <div className="flex flex-col items-center justify-center main-h-screen bg-gray-50">
         <div className="max-w-lg">
           <h2 className="text-2xl font-bold mb-2">
-            Total monitoring of Tornado Cash, Blocked Wallets and Exploits
+            Stay Protected: Real-Time Exploit Detection and On-Chain Data
+            Insights
           </h2>
-          <p className="text-gray-700">
-            We monitor Tornado Cash, identify blacklisted wallets and track
-            illegal EVM protocols.
+          <p className="text-gray-700 p-4">
+            Our platform is a public good for the blockchain community,
+            providing critical exploit alerts to protocols and users alike. With
+            a commitment to security, we offer public RPCs across every
+            supported network, ensuring rapid and reliable access to real-time
+            data.
           </p>
         </div>
 
         <div className="mt-6">
-          <FeatureBox
-            title="Accurate Detection of Connections with dApps"
-            description="We identify illicit funds and analyze their route to dApps, ensuring comprehensive, real-time monitoring."
-          />
+          <FeatureBox title="Accurate Detection of Connections with dApps" />
         </div>
 
         <div className="text-center mt-8">
