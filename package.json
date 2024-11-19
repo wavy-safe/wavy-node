@@ -10,10 +10,14 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-scroll-area": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "alchemy-sdk": "^3.4.1",
+=======
+    "@radix-ui/react-slot": "^1.1.0",
+>>>>>>> origin/main
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
