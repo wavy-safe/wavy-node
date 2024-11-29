@@ -1,7 +1,13 @@
+import Hero from "@/components/landing/Hero";
+import ExploreProduct from "@/components/landing/ExploreProduct";
+import Footer from "@/components/landing/Footer";
+
 export default function Home() {
   return (
-    <div>
-      <h1>hola</h1>
-    </div>
+    <main className="flex min-h-screen flex-col">
+      <Hero />
+      <ExploreProduct />
+      <Footer />
+    </main>
   );
 }
