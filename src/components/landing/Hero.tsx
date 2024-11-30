@@ -1,35 +1,49 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Hero() {
+const Hero = () => {
   return (
-    <div className="bg-[#F8FAFC] px-4 py-8 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
-      <div className="mx-auto max-w-7xl">
-        <div className="relative lg:grid lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-7">
-            <h1 className="text-left text-3xl font-bold tracking-tight text-[#1A2E44] sm:text-4xl md:text-5xl lg:text-6xl">
-              AI-powered threat detection and identification of transactions
+    <section className="bg-[#F8FAFC] w-full h-screen flex items-center justify-center px-4">
+      <div className="mx-auto max-w-7xl w-full h-full flex items-center justify-center">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-12 w-full items-center">
+          {/* Left Content */}
+          <div className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left">
+            <h1 className="text-4xl font-extrabold tracking-tight text-[#1A2E44] sm:text-5xl lg:text-6xl">
+              AI-powered Threat Detection & Transaction Analysis
             </h1>
-            <p className="mt-6 text-left text-base text-[#64748B] sm:text-lg md:text-xl">
-              We monitor, identify and track malicious wallets, alerting dApps
-              and exchanges generating detailed activity reports, preventing
-              interaction with high-risk users.
+            <p className="mt-4 text-lg text-[#64748B] sm:text-xl lg:leading-relaxed">
+              Monitor, identify, and track malicious wallets. Stay ahead of
+              threats with detailed activity reports, preventing high-risk
+              interactions for dApps and exchanges.
             </p>
-            <div className="mt-8 sm:mt-10">
+            <div className="mt-6 flex gap-4 justify-center lg:justify-start">
               <Link
                 href="#"
-                className="inline-flex items-center rounded-lg bg-[#1A2E44] px-6 py-3 text-base font-medium text-white shadow-sm transition-colors hover:bg-[#1A2E44]/90"
+                className="inline-flex items-center justify-center rounded-lg bg-[#1A2E44] px-6 py-3 text-base font-medium text-white shadow-md transition hover:bg-[#16324A]"
+                aria-label="Book a demo"
               >
-                Book a demo
+                Book a Demo
+              </Link>
+              <Link
+                href="#"
+                className="inline-flex items-center justify-center rounded-lg border border-[#1A2E44] px-6 py-3 text-base font-medium text-[#1A2E44] transition hover:bg-[#1A2E44] hover:text-white"
+                aria-label="Learn more"
+              >
+                Docs Coming Soon
               </Link>
             </div>
           </div>
-          <div className="relative mt-20 lg:col-span-5 lg:mt-0">
-            <div className="absolute right-0 top-0 rounded-lg border border-[#1A2E44]/10 bg-white p-4 shadow-sm">
-              <div className="text-sm font-medium text-[#1A2E44]">Networks</div>
-              <div className="mt-2">
+
+          {/* Right Content */}
+          <div className="lg:col-span-5 flex items-center justify-center mt-8 lg:mt-0">
+            {/* Network Widget */}
+            <div className="rounded-lg border border-[#1A2E44]/10 bg-white p-4 shadow-md">
+              <div className="text-sm font-medium text-[#1A2E44] text-center">
+                Networks
+              </div>
+              <div className="mt-2 flex justify-center">
                 <Image
-                  src="/network-icon.svg"
+                  src="/arB.svg"
                   alt="Network icon"
                   width={40}
                   height={40}
@@ -37,12 +51,11 @@ export default function Hero() {
                 />
               </div>
             </div>
-            <div className="mt-16 rounded-2xl bg-[#1A2E44]/5 px-6 py-8 sm:mt-24 sm:px-8 sm:py-12">
-              {/* Placeholder for additional content */}
-            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default Hero;

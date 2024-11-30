@@ -26,7 +26,7 @@ export default function Navbar() {
               Book a demo
             </Link>
             <Link
-              href="#"
+              href="./dashboard"
               className="rounded-lg bg-[#1A2E44] px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[#1A2E44]/90 sm:px-4 sm:py-2 sm:text-sm"
             >
               Launch App
