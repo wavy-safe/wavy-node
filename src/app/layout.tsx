@@ -1,13 +1,12 @@
-import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Wavy Node - AI-powered Threat Detection",
-  description:
-    "Wavy Node helps prevent interactions with high-risk users, dApps, and exchanges using advanced AI technology.",
+  title: "Wavy Node - AI-powered threat detection",
+  description: "AI-powered threat detection and identification of transactions",
 };
 
 export default function RootLayout({
@@ -17,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-pattern`}>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

@@ -1,64 +1,48 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
-    <section className="relative w-full min-h-screen pb-32">
-      {/* Header */}
-      <header className="container mx-auto px-4 py-8 flex justify-between items-center">
-        <Image
-          src="/wavyNode.svg"
-          alt="Wavy Node Logo"
-          width={150}
-          height={40}
-          className="h-10 w-auto"
-        />
-        <div className="flex gap-4">
-          <Button
-            variant="outline"
-            className="border-[#2D2E89] text-[#2D2E89] hover:bg-[#C8E1EE] hover:text-[#2D2E89] hover:border-[#2D2E89]"
-          >
-            Book a demo
-          </Button>
-          <Button className="bg-[#2D2E89] text-[#F9F9F9] hover:bg-[#394754]">
-            Launch App
-          </Button>
-        </div>
-      </header>
-
-      {/* Hero Content */}
-      <div className="container mx-auto px-4 mt-20 relative">
-        <div className="max-w-3xl">
-          <h1 className="text-5xl md:text-6xl font-bold text-[#2F2F2F] mb-8">
-            AI-powered threat detection and identification of transactions
-          </h1>
-          <p className="text-xl text-[#545454] mb-12 max-w-2xl">
-            We monitor, identify and track malicious wallets, alerting dApps and
-            exchanges generating detailed activity reports, preventing
-            interaction with high-risk users.
-          </p>
-          <Button className="bg-[#2D2E89] text-[#F9F9F9] hover:bg-[#394754] text-lg px-8 py-6">
-            Book a demo
-          </Button>
-        </div>
-
-        {/* Networks Card */}
-        <div className="absolute right-4 top-0 bg-[#F9F9F9] rounded-lg shadow-lg p-6 border border-[#D6D6ED]">
-          <span className="block text-sm font-medium text-[#545454] mb-4">
-            Networks
-          </span>
-          <Image
-            src="/arB.svg"
-            alt="Networks Icon"
-            width={80}
-            height={80}
-            className="w-20 h-20"
-          />
+    <div className="bg-[#F8FAFC] px-4 py-8 sm:px-6 sm:py-16 lg:px-8 lg:py-24">
+      <div className="mx-auto max-w-7xl">
+        <div className="relative lg:grid lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-7">
+            <h1 className="text-left text-3xl font-bold tracking-tight text-[#1A2E44] sm:text-4xl md:text-5xl lg:text-6xl">
+              AI-powered threat detection and identification of transactions
+            </h1>
+            <p className="mt-6 text-left text-base text-[#64748B] sm:text-lg md:text-xl">
+              We monitor, identify and track malicious wallets, alerting dApps
+              and exchanges generating detailed activity reports, preventing
+              interaction with high-risk users.
+            </p>
+            <div className="mt-8 sm:mt-10">
+              <Link
+                href="#"
+                className="inline-flex items-center rounded-lg bg-[#1A2E44] px-6 py-3 text-base font-medium text-white shadow-sm transition-colors hover:bg-[#1A2E44]/90"
+              >
+                Book a demo
+              </Link>
+            </div>
+          </div>
+          <div className="relative mt-20 lg:col-span-5 lg:mt-0">
+            <div className="absolute right-0 top-0 rounded-lg border border-[#1A2E44]/10 bg-white p-4 shadow-sm">
+              <div className="text-sm font-medium text-[#1A2E44]">Networks</div>
+              <div className="mt-2">
+                <Image
+                  src="/network-icon.svg"
+                  alt="Network icon"
+                  width={40}
+                  height={40}
+                  className="h-10 w-10"
+                />
+              </div>
+            </div>
+            <div className="mt-16 rounded-2xl bg-[#1A2E44]/5 px-6 py-8 sm:mt-24 sm:px-8 sm:py-12">
+              {/* Placeholder for additional content */}
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Diagonal Divider */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-[#2D2E89] transform -skew-y-3 origin-bottom-right" />
-    </section>
+    </div>
   );
 }
