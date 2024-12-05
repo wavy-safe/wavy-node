@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Search } from "../../components/dashboard/search";
 import { NetworkSelector } from "../../components/dashboard/network-selector.tsx";
