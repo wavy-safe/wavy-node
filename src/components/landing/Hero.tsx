@@ -1,64 +1,61 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Hero() {
+const Hero = () => {
   return (
-    <section className="relative w-full min-h-screen pb-32">
-      {/* Header */}
-      <header className="container mx-auto px-4 py-8 flex justify-between items-center">
-        <Image
-          src="/wavyNode.svg"
-          alt="Wavy Node Logo"
-          width={150}
-          height={40}
-          className="h-10 w-auto"
-        />
-        <div className="flex gap-4">
-          <Button
-            variant="outline"
-            className="border-[#2D2E89] text-[#2D2E89] hover:bg-[#C8E1EE] hover:text-[#2D2E89] hover:border-[#2D2E89]"
-          >
-            Book a demo
-          </Button>
-          <Button className="bg-[#2D2E89] text-[#F9F9F9] hover:bg-[#394754]">
-            Launch App
-          </Button>
-        </div>
-      </header>
+    <section className="bg-[#F8FAFC] w-full h-screen flex items-center justify-center px-4">
+      <div className="mx-auto max-w-7xl w-full h-full flex items-center justify-center">
+        <div className="lg:grid lg:grid-cols-12 lg:gap-12 w-full items-center">
+          {/* Left Content */}
+          <div className="lg:col-span-7 flex flex-col justify-center text-center lg:text-left">
+            <h1 className="text-4xl font-extrabold tracking-tight text-[#1A2E44] sm:text-5xl lg:text-6xl">
+              AI-powered Threat Detection & Transaction Analysis
+            </h1>
+            <p className="mt-4 text-lg text-[#64748B] sm:text-xl lg:leading-relaxed">
+              Monitor, identify, and track malicious wallets. Stay ahead of
+              threats with detailed activity reports, preventing high-risk
+              interactions for dApps and exchanges.
+            </p>
+            <div className="mt-6 flex gap-4 justify-center lg:justify-start">
+              <Link
+                href="#"
+                className="inline-flex items-center justify-center rounded-lg bg-[#1A2E44] px-6 py-3 text-base font-medium text-white shadow-md transition hover:bg-[#16324A]"
+                aria-label="Book a demo"
+              >
+                Book a Demo
+              </Link>
+              <Link
+                href="#"
+                className="inline-flex items-center justify-center rounded-lg border border-[#1A2E44] px-6 py-3 text-base font-medium text-[#1A2E44] transition hover:bg-[#1A2E44] hover:text-white"
+                aria-label="Learn more"
+              >
+                Docs Coming Soon
+              </Link>
+            </div>
+          </div>
 
-      {/* Hero Content */}
-      <div className="container mx-auto px-4 mt-20 relative">
-        <div className="max-w-3xl">
-          <h1 className="text-5xl md:text-6xl font-bold text-[#2F2F2F] mb-8">
-            AI-powered threat detection and identification of transactions
-          </h1>
-          <p className="text-xl text-[#545454] mb-12 max-w-2xl">
-            We monitor, identify and track malicious wallets, alerting dApps and
-            exchanges generating detailed activity reports, preventing
-            interaction with high-risk users.
-          </p>
-          <Button className="bg-[#2D2E89] text-[#F9F9F9] hover:bg-[#394754] text-lg px-8 py-6">
-            Book a demo
-          </Button>
-        </div>
-
-        {/* Networks Card */}
-        <div className="absolute right-4 top-0 bg-[#F9F9F9] rounded-lg shadow-lg p-6 border border-[#D6D6ED]">
-          <span className="block text-sm font-medium text-[#545454] mb-4">
-            Networks
-          </span>
-          <Image
-            src="/arB.svg"
-            alt="Networks Icon"
-            width={80}
-            height={80}
-            className="w-20 h-20"
-          />
+          {/* Right Content */}
+          <div className="lg:col-span-5 flex items-center justify-center mt-8 lg:mt-0">
+            {/* Network Widget */}
+            <div className="rounded-lg border border-[#1A2E44]/10 bg-white p-4 shadow-md">
+              <div className="text-sm font-medium text-[#1A2E44] text-center">
+                Networks
+              </div>
+              <div className="mt-2 flex justify-center">
+                <Image
+                  src="/arB.svg"
+                  alt="Network icon"
+                  width={40}
+                  height={40}
+                  className="h-10 w-10"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      {/* Diagonal Divider */}
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-[#2D2E89] transform -skew-y-3 origin-bottom-right" />
     </section>
   );
-}
+};
+
+export default Hero;
