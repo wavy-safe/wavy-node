@@ -1,4 +1,4 @@
-import { blockscoutFactory } from "@/lib/blockscout"
+import { arbitrum } from "@/lib/blockscout/arbitrum"
 import { IStatus } from "@/types/address-status.type"
 import { IEvent } from "@/types/event.type"
 import { createClient } from "@/utils/supabase/server"
@@ -47,20 +47,19 @@ export async function GET(request: NextRequest) {
 		})
 	}
 
-	// note: check that the address has, indeed, some txs in arb
-
 	// lastTxs and lastDapps
-	const arbitrum = blockscoutFactory('arbitrum', process.env.BLOCKSCOUT_ARBITRUM_APIKEY!)
-	const res = await arbitrum.get(`/addresses/${address}/transactions?filter=from`) // this returns last 50 txs
+	const res = await arbitrum.get(`/addresses/${address}/transactions?filter=from`).catch(() => null) // this returns last 50 txs
 
-	// get last txs
-	status.lastTxs = res.data.items.slice(0, 5)
+	if (res) {
+		// get last txs
+		status.lastTxs = res.data.items.slice(0, 5)
 
-	// get last dapps
-	status.lastDapps = res.data.items
-		.filter((i: any) => i.to.is_contract && i.to.name)
-		.slice(0, 5)
-		.map((d: any) => d.to)
+		// get last dapps
+		status.lastDapps = res.data.items
+			.filter((i: any) => i.to.is_contract && i.to.name)
+			.slice(0, 5)
+			.map((d: any) => d.to)
+	}
 
 	return Response.json({
 		success: true,
