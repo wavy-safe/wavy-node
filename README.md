@@ -12,3 +12,8 @@
 
 
 ```
+
+# Things to do
+- [ ] Refine last dapps used in /api/addresses/status
+- [ ] Fix pagination at /api/addresses/balance
+- [ ] Add exploits to db(?)
