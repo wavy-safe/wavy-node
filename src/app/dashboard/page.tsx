@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import { Search } from "../../components/dashboard/search";
 import { NetworkSelector } from "../../components/dashboard/network-selector.tsx";
@@ -10,6 +9,7 @@ export default function Home() {
     <div className="container mx-auto py-6 space-y-8">
       <Search />
       <NetworkSelector />
+	  {/* these buttons should trigger server actions */}
       <div className="flex justify-end gap-4 px-4">
         <Button variant="default">Generate report</Button>
         <Button variant="default">View status</Button>
