@@ -1,4 +1,4 @@
-import { arbitrum } from "@/lib/blockscout/arbitrum"
+import { useBlockscout } from "@/lib/blockscout"
 import { NextRequest } from "next/server"
 
 export async function GET(request: NextRequest) {
@@ -6,6 +6,8 @@ export async function GET(request: NextRequest) {
 	const query = request.nextUrl.searchParams
 	const chainId = query.get('chainId') as string
 	const address = query.get('address') as string
+
+	const blockscout = useBlockscout(Number(chainId))
 
 	if (!chainId) return Response.json({
 		success: false,
@@ -20,7 +22,7 @@ export async function GET(request: NextRequest) {
 	const params = new URLSearchParams()
 	params.set('type', 'ERC-20')
 
-	const res = await arbitrum.get(`/addresses/${address}/tokens?${params.toString()}`)
+	const res = await blockscout.get(`/addresses/${address}/tokens?${params.toString()}`)
 
 	return Response.json({
 		success: true,

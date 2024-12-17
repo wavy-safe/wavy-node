@@ -1,4 +1,4 @@
-import { arbitrum } from "@/lib/blockscout/arbitrum"
+import { useBlockscout } from "@/lib/blockscout"
 import { IStatus } from "@/types/address-status.type"
 import { IEvent } from "@/types/event.type"
 import { createClient } from "@/utils/supabase/server"
@@ -10,6 +10,8 @@ export async function GET(request: NextRequest) {
 	const query = request.nextUrl.searchParams
 	const chainId = query.get('chainId') as string
 	const address = query.get('address') as string
+
+	const blockscout = useBlockscout(Number(chainId))
 
 	let status: IStatus = {
 		status: "clean",
@@ -48,7 +50,7 @@ export async function GET(request: NextRequest) {
 	}
 
 	// lastTxs and lastDapps
-	const res = await arbitrum.get(`/addresses/${address}/transactions?filter=from`).catch(() => null) // this returns last 50 txs
+	const res = await blockscout.get(`/addresses/${address}/transactions?filter=from`).catch(() => null) // this returns last 50 txs
 
 	if (res) {
 		// get last txs
