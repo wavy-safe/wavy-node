@@ -1,8 +1,9 @@
 import { Axios } from "axios"
 import { createBlockscout } from "./factory"
 
+// Map<ChainId, Blockscout>
 const blockscouts = new Map<number, Axios>()
-blockscouts.set(42161, createBlockscout('arbitrum', process.env.BLOCKSCOUT_ARBITRUM_APIKEY!))
+	.set(42161, createBlockscout('arbitrum', process.env.BLOCKSCOUT_ARBITRUM_APIKEY!))
 
 export const useBlockscout = (chainId: number) => {
 	const b = blockscouts.get(chainId)

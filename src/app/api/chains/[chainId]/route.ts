@@ -27,11 +27,14 @@ export async function GET(
 			success: true,
 			data: {
 				name: chain.name,
-				chainId,
-				currencySymbol: chain.currency_symbol,
-				marketCap: stats.data.market_cap,
-				coinPrice: stats.data.coin_price,
-				coinImage: stats.data.coin_image,
+				chain_id: chainId,
+				currency_symbol: chain.currency_symbol,
+				market_cap: stats.data.market_cap,
+				coin_price: stats.data.coin_price,
+				coin_image: stats.data.coin_image,
+				total_addresses: stats.data.total_addresses,
+				total_blocks: stats.data.total_blocks,
+				total_transactions: stats.data.total_transactions,
 				tvl: stats.data.tvl
 			}
 		})
