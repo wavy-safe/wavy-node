@@ -22,10 +22,28 @@ export async function GET(request: NextRequest) {
 	const params = new URLSearchParams()
 	params.set('type', 'ERC-20')
 
-	const res = await blockscout.get(`/addresses/${address}/tokens?${params.toString()}`)
+	const addressData = await blockscout.get(`/addresses/${address}`)
+	const tokens = await blockscout.get(`/addresses/${address}/tokens?${params.toString()}`)
+
+	// main currency balance
+	const coinBalance = Number(addressData.data.coin_balance) / Math.pow(10, 18)
+	const coinBalanceInUSD = coinBalance * Number(addressData.data.exchange_rate)
+
+	// get total balance
+	const totalBalance = (tokens.data.items as any[]).reduce((prev, curr) => {
+		if (curr.token.exchange_rate) {
+			const owned = Number(curr.value) / Math.pow(10, Number(curr.token.decimals))
+			const valueInUSD = owned * Number(curr.token.exchange_rate)
+			return prev + valueInUSD
+		}
+		return prev
+	}, coinBalanceInUSD || 0)
 
 	return Response.json({
 		success: true,
-		data: res.data.items
+		data: {
+			total_balance: totalBalance,
+			assets: tokens.data.items,
+		}
 	})
 }

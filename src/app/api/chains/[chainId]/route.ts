@@ -21,7 +21,6 @@ export async function GET(
 		if (error) throw new Error(error.message)
 
 		const stats = await blockscout.get('/stats')
-		console.log({ stats })
 
 		return Response.json({
 			success: true,
