@@ -1,9 +1,13 @@
+type Contract = 'tornado'
+
 export interface IEvent {
 	id: number,
-	contract: 'tornado' | 'usdc' | 'usdt' | 'ofac',
+	chain_id: number,
+	contract: Contract,
 	address: string,
 	timestamp: number,
 	tx_hash: string,
-	amount: string,
-	chain_id: number
+	block: number,
+	event_type: string,
+	amount: string | null,
 }

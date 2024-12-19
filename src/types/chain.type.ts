@@ -3,5 +3,6 @@ export interface IChain {
 	name: string,
 	rpc_url: string,
 	explorer_url: string,
-	currency_symbol: string
+	currency_symbol: string,
+	currency_decimals: number
 }

@@ -1,4 +1,4 @@
-import { useBlockscout } from "@/lib/blockscout"
+import { getBlockscout } from "@/lib/blockscout"
 import { NextRequest } from "next/server"
 
 export async function GET(request: NextRequest) {
@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
 	const chainId = query.get('chainId') as string
 	const address = query.get('address') as string
 
-	const blockscout = useBlockscout(Number(chainId))
+	const blockscout = getBlockscout(Number(chainId))
 
 	if (!chainId) return Response.json({
 		success: false,

@@ -1,4 +1,4 @@
-import { useBlockscout } from "@/lib/blockscout";
+import { getBlockscout } from "@/lib/blockscout";
 import { IChain } from "@/types/chain.type";
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest } from "next/server";
@@ -11,7 +11,7 @@ export async function GET(
 		const chainId = Number((await params).chainId)
 
 		const supabase = await createClient()
-		const blockscout = useBlockscout(chainId)
+		const blockscout = getBlockscout(chainId)
 
 		const { data: chain, error } = await supabase.from('chains')
 			.select()
