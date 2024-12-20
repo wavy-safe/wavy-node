@@ -10,6 +10,7 @@
 		"postbuild": "next-sitemap"
 	},
 	"dependencies": {
+		"@ai-sdk/openai": "^1.0.10",
 		"@privy-io/react-auth": "^1.98.1",
 		"@radix-ui/react-avatar": "1.1.1",
 		"@radix-ui/react-dropdown-menu": "^2.1.4",
@@ -17,6 +18,7 @@
 		"@radix-ui/react-slot": "^1.1.0",
 		"@supabase/ssr": "^0.5.2",
 		"@supabase/supabase-js": "^2.46.2",
+		"ai": "^4.0.21",
 		"alchemy-sdk": "3.5.0",
 		"axios": "^1.7.9",
 		"class-variance-authority": "0.7.0",
@@ -27,7 +29,9 @@
 		"react": "18.3.1",
 		"react-dom": "18.3.1",
 		"tailwind-merge": "2.5.4",
-		"tailwindcss-animate": "1.0.7"
+		"tailwindcss-animate": "1.0.7",
+		"ts-swarm": "^1.2.6",
+		"zod": "^3.24.1"
 	},
 	"devDependencies": {
 		"@types/node": "22.9.0",
