@@ -1,21 +1,28 @@
-i"use client"
+"use client";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
-import { Circle } from 'lucide-react'
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Circle } from "lucide-react";
 
 function DonutChart() {
   return (
     <div className="relative w-[120px] h-[120px]">
       <svg width="120" height="120" viewBox="0 0 120 120">
         {/* Background circle */}
-        <circle 
-          cx="60" 
-          cy="60" 
-          r="54" 
-          fill="white" 
-          stroke="#1B2B3A" 
+        <circle
+          cx="60"
+          cy="60"
+          r="54"
+          fill="white"
+          stroke="#1B2B3A"
           strokeWidth="12"
         />
         {/* Purple segments - all 100% */}
@@ -32,7 +39,7 @@ function DonutChart() {
         />
       </svg>
     </div>
-  )
+  );
 }
 
 export default function BalanceOverview() {
@@ -40,7 +47,7 @@ export default function BalanceOverview() {
     { symbol: "ARB", price: 123456, holding: 123.456, value: 123456 },
     { symbol: "ARB", price: 123456, holding: 123.456, value: 123456 },
     { symbol: "ARB", price: 123456, holding: 123.456, value: 123456 },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-[#F8FAFF] p-4">
@@ -49,18 +56,17 @@ export default function BalanceOverview() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <div className="text-lg font-medium">
-                Total balance: <span className="text-xl">${(123456).toLocaleString()}</span>
+                Total balance:{" "}
+                <span className="text-xl">${(123456).toLocaleString()}</span>
               </div>
               <div className="text-sm text-muted-foreground font-mono">
                 0x64Fe09e588B483438E7bb47c49ecd9FF09f1A4ff
               </div>
             </div>
-            
+
             <div className="flex justify-between items-center">
               <DonutChart />
-              <div className="text-sm text-muted-foreground">
-                wavynode.eth
-              </div>
+              <div className="text-sm text-muted-foreground">wavynode.eth</div>
             </div>
 
             <div className="grid gap-1.5">
@@ -115,6 +121,5 @@ export default function BalanceOverview() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
-
