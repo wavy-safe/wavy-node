@@ -39,9 +39,7 @@ export function Header({ children }: { children: React.ReactNode }) {
 					src="./wavyNode.svg"
 					alt="Wavy Node Logo"
 					width={40}
-					height={40}
-					className="dark:invert"
-				/>
+					height={40} className="dark:invert" />
 				<span className="text-xl font-medium">Wavy Node</span>
 			</div>
 
