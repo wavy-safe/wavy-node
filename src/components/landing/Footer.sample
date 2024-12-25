@@ -1,12 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { Twitter, Github, MessageCircle } from "lucide-react";
+import { Twitter, Github } from "lucide-react";
+
+
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import WalletPopup from '../WalletPopup';
+
 import { PushAPI } from '@pushprotocol/restapi';
-import PushHelpChannel from './PushHelpChannel'; // Import the PushHelpChannel component
+
 
 interface WalletInfo {
   provider: ethers.providers.Web3Provider;
@@ -18,9 +21,10 @@ interface WalletInfo {
   };
 }
 
+
 export default function Footer() {
+
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
-  const [isHelpOpen, setIsHelpOpen] = useState<boolean>(false);
   const [walletInfo, setWalletInfo] = useState<WalletInfo | null>(null);
 
   const handleConnect = (connectionInfo: WalletInfo) => {
@@ -49,7 +53,8 @@ export default function Footer() {
             <Github className="h-4 w-4 sm:h-5 sm:w-5" />
           </Link>
 
-          <div style={{position: 'relative', zIndex: 1000}}>
+
+          <div className="p-4">
             <button
               onClick={() => setIsPopupOpen(true)}
               className="bg-blue-600 text-white px-4 py-2 rounded"
@@ -72,25 +77,11 @@ export default function Footer() {
             />
           </div>
 
-          <div style={{position: 'relative', zIndex: 1000}}>
-            {walletInfo && (
-              <>
-                <button
-                  onClick={() => setIsHelpOpen(true)}
-                  className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  Help Channel
-                </button>
-
-                <PushHelpChannel
-                  isOpen={isHelpOpen}
-                  onClose={() => setIsHelpOpen(false)}
-                  address={walletInfo.address}
-                />
-              </>
-            )}
+          <div>
+            {/* HERE YOU SHOULD INSTANTIATE THE PUSH API CHANNEL POP UP COMPONENT */}
           </div>
+
+
         </div>
         <p className="mt-4 text-center text-xs text-[#64748B] sm:mt-6 sm:text-sm">
           &copy; 2023 Wavy Node. All rights reserved.
