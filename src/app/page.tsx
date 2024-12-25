@@ -19,10 +19,11 @@ export default function Home() {
   const [signer, setSigner] = useState<ethers.Signer | null>(null);
   const [address, setAddress] = useState<string>("");
   const [isConnected, setIsConnected] = useState(false);
-  const [recipientAddress, setRecipientAddress] = useState("0x99A08ac6254dcf7ccc37CeC662aeba8eFA666666");
   const [message, setMessage] = useState("Gm gm! It's a me... Mario");
   const [pushUser, setPushUser] = useState<any>(null);
   const [isInitialized, setIsInitialized] = useState(false);
+
+  const WAVY_NODE_HELP_ADDRESS = "0xbe5F169a321ADaA76649a381f7dF6b63c7CCb335";
 
   async function connectWallet() {
     try {
@@ -96,7 +97,7 @@ export default function Home() {
       }
 
       // Send a message to recipient
-      const sendMessage = await pushUser.chat.send(recipientAddress, {
+      const sendMessage = await pushUser.chat.send(WAVY_NODE_HELP_ADDRESS, {
         content: message,
         type: 'Text',
       });
@@ -137,14 +138,6 @@ export default function Home() {
             </button>
 
             <div className="border-t pt-4">
-              <input
-                type="text"
-                value={recipientAddress}
-                onChange={(e) => setRecipientAddress(e.target.value)}
-                placeholder="Recipient Address"
-                className="w-full p-2 border rounded mb-2"
-              />
-
               <input
                 type="text"
                 value={message}
