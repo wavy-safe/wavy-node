@@ -58,20 +58,9 @@ export default function Home() {
       setIsConnected(true);
       
       console.log("Wallet connected:", userAddress);
-    } catch (error) {
-      console.error("Error connecting wallet:", error);
-    }
-  }
-  
-  async function initialize() {
-    try {
-      if (!signer) {
-        alert("Please connect your wallet first!");
-        return;
-      }
 
-      // Initialize wallet user with connected signer
-      const user = await PushAPI.initialize(signer, {
+      // Initialize Push
+      const user = await PushAPI.initialize(newSigner, {
         env: CONSTANTS.ENV.PROD,
       });
       
@@ -91,9 +80,14 @@ export default function Home() {
       await stream.connect();
       console.log("Stream connected successfully");
 
+      // Load chat history
+      const chatHistory = await user.chat.history(WAVY_NODE_HELP_ADDRESS);
+      console.log("Chat history loaded:", chatHistory);
+      setMessages(chatHistory);
+
     } catch (error) {
-      console.error("Error initializing Push:", error);
-      alert("Error initializing Push. Check console for details.");
+      console.error("Error in connection flow:", error);
+      alert("Error in connection flow. Check console for details.");
     }
   }
 
@@ -153,79 +147,67 @@ export default function Home() {
               onClick={connectWallet}
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
             >
-              {isConnected ? `Connected: ${address.slice(0,6)}...${address.slice(-4)}` : 'Connect Wallet'}
+              {isConnected ? `Connected: ${address.slice(0,6)}...${address.slice(-4)}` : 'Connect wallet to chat'}
             </button>
 
-            <button 
-              onClick={initialize}
-              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded w-full"
-              disabled={!isConnected}
-            >
-              {isInitialized ? 'Initialized' : 'Initialize Push'}
-            </button>
+            {isConnected && (
+              <>
+                <div className="space-y-2 max-h-[400px] overflow-y-auto p-4 border rounded"
+                     ref={messageContainerRef}>
+                  {messages.slice().reverse().map((message, index) => {
+                    const isUserMessage = message.fromDID.replace('eip155:', '') === address;
+                    const isWavyHelp = message.fromDID.replace('eip155:', '') === WAVY_NODE_HELP_ADDRESS;
+                    const cleanAddress = message.fromDID.replace('eip155:', '');
+                    const shortAddress = `${cleanAddress.slice(0,6)}...${cleanAddress.slice(-4)}`;
+                    
+                    let displayName = shortAddress;
+                    if (isUserMessage) {
+                      displayName = `YOU (${shortAddress})`;
+                    } else if (isWavyHelp) {
+                      displayName = `WAVY HELP (${shortAddress})`;
+                    }
 
-            <div className="space-y-2 max-h-[400px] overflow-y-auto p-4 border rounded"
-                 ref={messageContainerRef}>
-              {messages.slice().reverse().map((message, index) => {
-                const isUserMessage = message.fromDID.replace('eip155:', '') === address;
-                const isWavyHelp = message.fromDID.replace('eip155:', '') === WAVY_NODE_HELP_ADDRESS;
-                const cleanAddress = message.fromDID.replace('eip155:', '');
-                const shortAddress = `${cleanAddress.slice(0,6)}...${cleanAddress.slice(-4)}`;
-                
-                let displayName = shortAddress;
-                if (isUserMessage) {
-                  displayName = `YOU (${shortAddress})`;
-                } else if (isWavyHelp) {
-                  displayName = `WAVY HELP (${shortAddress})`;
-                }
+                    return (
+                      <div 
+                        key={index} 
+                        className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <div 
+                          className={`max-w-[70%] rounded-lg px-4 py-2 ${
+                            isUserMessage 
+                              ? 'bg-blue-500 text-white' 
+                              : 'bg-gray-200 text-gray-800'
+                          }`}
+                        >
+                          <p className="text-sm opacity-75 mb-1">
+                            {displayName}
+                          </p>
+                          <p>{message.messageContent}</p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
 
-                return (
-                  <div 
-                    key={index} 
-                    className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'}`}
+                <div className="border-t pt-4">
+                  <input
+                    type="text"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Message"
+                    className="w-full p-2 border rounded mb-2"
+                  />
+
+                  <button 
+                    onClick={sendMessage}
+                    className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded w-full"
+                    disabled={!isInitialized}
                   >
-                    <div 
-                      className={`max-w-[70%] rounded-lg px-4 py-2 ${
-                        isUserMessage 
-                          ? 'bg-blue-500 text-white' 
-                          : 'bg-gray-200 text-gray-800'
-                      }`}
-                    >
-                      <p className="text-sm opacity-75 mb-1">
-                        {displayName}
-                      </p>
-                      <p>{message.messageContent}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="border-t pt-4">
-              <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Message"
-                className="w-full p-2 border rounded mb-2"
-              />
-
-              <button 
-                onClick={sendMessage}
-                className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded w-full"
-                disabled={!isInitialized}
-              >
-                Send Message
-              </button>
-
-              <button 
-                onClick={loadChatHistory}
-                className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded w-full"
-                disabled={!isInitialized}
-              >
-                Load Chat History
-              </button>
-            </div>
+                    Send Message
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
