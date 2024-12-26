@@ -12,18 +12,31 @@ import { PushAPI, CONSTANTS } from '@pushprotocol/restapi';
 
 // Ethers or Viem, both are supported
 import { ethers } from 'ethers';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 
 export default function Home() {
   const [signer, setSigner] = useState<ethers.Signer | null>(null);
   const [address, setAddress] = useState<string>("");
   const [isConnected, setIsConnected] = useState(false);
-  const [message, setMessage] = useState("Gm gm! It's a me... Mario");
+  const [message, setMessage] = useState("Type help message here...");
+  const [messages, setMessages] = useState<any[]>([]);
+  const messageContainerRef = useRef<HTMLDivElement>(null);
   const [pushUser, setPushUser] = useState<any>(null);
   const [isInitialized, setIsInitialized] = useState(false);
 
   const WAVY_NODE_HELP_ADDRESS = "0xbe5F169a321ADaA76649a381f7dF6b63c7CCb335";
+
+  const scrollToBottom = () => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    }
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+  
 
   async function connectWallet() {
     try {
@@ -112,6 +125,20 @@ export default function Home() {
     }
   }
 
+  async function loadChatHistory()
+  {
+    // userAlice.chat.history(recipient. {options?})
+    const aliceChatHistoryWithBob = await pushUser.chat.history(WAVY_NODE_HELP_ADDRESS);
+    console.log("Alice chat history with Bob:", aliceChatHistoryWithBob);
+
+    for (const message of aliceChatHistoryWithBob)
+    {
+      console.log("Message:", message.messageContent);
+    }
+
+    setMessages(aliceChatHistoryWithBob);
+  }
+
   return (
     <main className="flex min-h-screen flex-col">
       <Navbar />
@@ -137,6 +164,43 @@ export default function Home() {
               {isInitialized ? 'Initialized' : 'Initialize Push'}
             </button>
 
+            <div className="space-y-2 max-h-[400px] overflow-y-auto p-4 border rounded"
+                 ref={messageContainerRef}>
+              {messages.slice().reverse().map((message, index) => {
+                const isUserMessage = message.fromDID.replace('eip155:', '') === address;
+                const isWavyHelp = message.fromDID.replace('eip155:', '') === WAVY_NODE_HELP_ADDRESS;
+                const cleanAddress = message.fromDID.replace('eip155:', '');
+                const shortAddress = `${cleanAddress.slice(0,6)}...${cleanAddress.slice(-4)}`;
+                
+                let displayName = shortAddress;
+                if (isUserMessage) {
+                  displayName = `YOU (${shortAddress})`;
+                } else if (isWavyHelp) {
+                  displayName = `WAVY HELP (${shortAddress})`;
+                }
+
+                return (
+                  <div 
+                    key={index} 
+                    className={`flex ${isUserMessage ? 'justify-end' : 'justify-start'}`}
+                  >
+                    <div 
+                      className={`max-w-[70%] rounded-lg px-4 py-2 ${
+                        isUserMessage 
+                          ? 'bg-blue-500 text-white' 
+                          : 'bg-gray-200 text-gray-800'
+                      }`}
+                    >
+                      <p className="text-sm opacity-75 mb-1">
+                        {displayName}
+                      </p>
+                      <p>{message.messageContent}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
             <div className="border-t pt-4">
               <input
                 type="text"
@@ -152,6 +216,14 @@ export default function Home() {
                 disabled={!isInitialized}
               >
                 Send Message
+              </button>
+
+              <button 
+                onClick={loadChatHistory}
+                className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded w-full"
+                disabled={!isInitialized}
+              >
+                Load Chat History
               </button>
             </div>
           </div>
