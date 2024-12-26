@@ -1,4 +1,3 @@
-"use client";
 import { Search } from "../../components/dashboard/search";
 
 export default function Home() {

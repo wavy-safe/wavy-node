@@ -36,7 +36,7 @@ export function Header({ children }: { children: React.ReactNode }) {
 
 			<div className="flex items-center gap-2">
 				<Image
-					src="./wavyNode.svg"
+					src="/wavyNode.svg"
 					alt="Wavy Node Logo"
 					width={40}
 					height={40} className="dark:invert" />

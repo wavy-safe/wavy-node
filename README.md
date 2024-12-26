@@ -17,3 +17,4 @@
 - [ ] Refine last dapps used in /api/addresses/status
 - [ ] Fix pagination at /api/addresses/balance
 - [ ] Add exploits to db(?)
+- [ ] Remove `chainId` from /api/address/status
