@@ -27,6 +27,39 @@ export default function Home() {
 
   const WAVY_NODE_HELP_ADDRESS = "0xbe5F169a321ADaA76649a381f7dF6b63c7CCb335";
 
+  // Add interval ID ref to clean up properly
+  const intervalRef = useRef<NodeJS.Timeout>();
+
+  // Effect for message auto-reload
+  useEffect(() => {
+    if (pushUser && isConnected) {
+      // Initial load
+      loadLatestMessages();
+      
+      // Set up interval
+      intervalRef.current = setInterval(loadLatestMessages, 1000);
+
+      // Cleanup on unmount or when dependencies change
+      return () => {
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
+      };
+    }
+  }, [pushUser, isConnected]);
+
+  // Function to load latest messages
+  const loadLatestMessages = async () => {
+    try {
+      if (pushUser) {
+        const chatHistory = await pushUser.chat.history(WAVY_NODE_HELP_ADDRESS);
+        setMessages(chatHistory);
+      }
+    } catch (error) {
+      console.error("Error loading messages:", error);
+    }
+  };
+
   const scrollToBottom = () => {
     if (messageContainerRef.current) {
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
