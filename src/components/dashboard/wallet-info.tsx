@@ -1,4 +1,9 @@
+"use client";
+
 import { Card, CardContent } from "@/components/ui/card";
+
+const DUMMY_WALLET = "0x64FeD9e56B548343E7bb47c49ecd7FFa9f1A34FE";
+const DUMMY_TAG = "Tornado Cash Depositor";
 
 export function WalletInfo() {
   return (
@@ -11,14 +16,14 @@ export function WalletInfo() {
           </div>
           <div className="space-y-1 text-right">
             <div className="text-xs text-muted-foreground break-all">
-              0x64FeD9e56B548343E7bb47c49ecd7FFa9f1A34FE
+              {DUMMY_WALLET}
             </div>
             <div className="text-sm text-muted-foreground">wavynode.eth</div>
           </div>
         </div>
         <div className="space-y-1">
           <div className="text-sm font-medium">Tags</div>
-          <div className="text-muted-foreground">Tornado Cash Depositor</div>
+          <div className="text-muted-foreground">{DUMMY_TAG}</div>
         </div>
       </CardContent>
     </Card>

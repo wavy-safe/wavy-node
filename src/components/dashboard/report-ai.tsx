@@ -11,18 +11,26 @@ export default function TransactionView() {
   const generateAIReport = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/generate-report", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          transaction: "0x64feD5e56B54834E7bb47c49ecd7fFa9f1A34FE",
-        }),
-      });
+      const response = await fetch(
+        "https://fastapi-wallet-api-1015236466818.us-central1.run.app/analyze-wallet",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            wallet_address: "0x64feD5e56B54834E7bb47c49ecd7fFa9f1A34FE",
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to generate the report");
+      }
 
       const data = await response.json();
-      setReport(data.report);
+      setReport(JSON.stringify(data, null, 2)); // Formatea y guarda el reporte
     } catch (error) {
       console.error("Error generating report:", error);
+      setReport("Error generating the report. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -35,12 +43,14 @@ export default function TransactionView() {
           <Button
             variant="secondary"
             className="bg-[#1a2942] text-white hover:bg-[#1a2942]/90"
+            onClick={() => alert("Export functionality not implemented yet")}
           >
             Export
           </Button>
           <Button
             variant="secondary"
             className="bg-[#1a2942] text-white hover:bg-[#1a2942]/90"
+            onClick={() => alert("Status functionality not implemented yet")}
           >
             View status
           </Button>
@@ -56,59 +66,32 @@ export default function TransactionView() {
             </div>
 
             <div className="space-y-8">
-              <section>
-                <h2 className="mb-3 text-lg font-semibold">Lorem ipsum</h2>
-                <p className="text-slate-600 leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Pellentesque et ante nec lorem blandit posuere et eu nulla.
-                  Suspendisse rhoncus erat nec gravida suscipit. Integer et
-                  mollis metus. Aliquam id justo accumsan, ornare metus congue,
-                  pulvinar orci. Fusce elementum faucibus aliquam. Nunc eu
-                  pellentesque mauris, sed elementum magna. In hac habitasse
-                  platea dictumst. Nam non tellus eget tellus ullamcorper
-                  posuere. Maecenas consequat tempor dui nec venenatis. Etiam a
-                  sagittis magna. Vestibulum aliquet arcu et mi dictum maximus.
-                  Mauris pharetra venenatis eleifend. Aliquam vulputate, sapien
-                  sed vulputate porta, enim orci malesuada tellus, in auctor dui
-                  leo posuere felis. Cras eu consequat lorem. Ut nec pretium
-                  orci. Vivamus sed mattis nisi.
-                </p>
-              </section>
+              {report ? (
+                <section>
+                  <h2 className="mb-3 text-lg font-semibold">AI Report</h2>
+                  <p className="text-slate-600 leading-relaxed whitespace-pre-wrap">
+                    {report}
+                  </p>
+                </section>
+              ) : (
+                <>
+                  <section>
+                    <h2 className="mb-3 text-lg font-semibold">Report Info</h2>
+                    <p className="text-slate-600 leading-relaxed">
+                      Click "Generate AI Report" to retrieve wallet analysis.
+                    </p>
+                  </section>
+                </>
+              )}
 
-              <section>
-                <h2 className="mb-3 text-lg font-semibold">Lorem ipsum</h2>
-                <p className="text-slate-600 leading-relaxed">
-                  Praesent et vehicula eros, sit amet feugiat nulla. Nulla non
-                  odio lacus. Donec porta, mi eu elementum feugiat, libero
-                  mauris fermentum nisi, quis eleifend mi tellus sit amet justo.
-                  Proin elementum nibh nec commodo dignissim. Cras sapien lacus
-                  sodales eu et libero torquent per conubia nostra, per inceptos
-                  himenaeos. Nam in velit vitae est laoreet suscipit. Mauris
-                  vitae magna sed quam viverra porta eu id odio. Aliquam erat
-                  volutpat. Fusce quam nibh, volutpat a sodales in, efficitur
-                  quis tortor. Maecenas et sagittis velit, vitae varius turpis.
-                  Quisque venenatis egestas est sed blandit. Cras purus lorem,
-                  molestie eu mattis lacinia, eleifend in nunc. Cras sodales
-                  vitae neque eget rhoncus. Vivamus pretium, neque vitae
-                  hendrerit rhoncus, nulla odio aliquet nulla, ut venenatis
-                  metus nisl viverra magna.
-                </p>
-              </section>
-
-              <section>
-                <h2 className="mb-3 text-lg font-semibold">Lorem ipsum</h2>
-                <p className="text-slate-600 leading-relaxed">
-                  Sed vel commodo ante. Ut dictum urna non metus eleifend,
-                  lobortis luctus nulla efficitur. Vestibulum vitae neque
-                  mattis, sagittis urna ut, porta lectus. Donec vitae turpis
-                  eros. Aliquam quis mauris ut diam lobortis placerat. Quisque a
-                  tempus libero. Praesent eleifend libero eros, quis commodo
-                  enim varius non. Maecenas eget justo ut tortor aliquet
-                  interdum. Nunc at velit eu nisi pharetra gravida eu nec ipsum.
-                  Mauris ultrices justo a quam vulputate, ut imperdiet neque
-                  scelerisque.
-                </p>
-              </section>
+              <Button
+                variant="secondary"
+                className="bg-[#1a2942] text-white hover:bg-[#1a2942]/90 w-full"
+                onClick={generateAIReport}
+                disabled={loading}
+              >
+                {loading ? "Generating..." : "Generate AI Report"}
+              </Button>
             </div>
           </CardContent>
         </Card>
