@@ -1,10 +1,11 @@
+// report-ai.tsx
 "use client";
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-export default function TransactionView() {
+export default function ReportAI({ address }: { address: string }) {
   const [report, setReport] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -17,7 +18,7 @@ export default function TransactionView() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            wallet_address: "0x64feD5e56B54834E7bb47c49ecd7fFa9f1A34FE",
+            wallet_address: address,
           }),
         }
       );
@@ -27,13 +28,27 @@ export default function TransactionView() {
       }
 
       const data = await response.json();
-      setReport(JSON.stringify(data, null, 2)); // Formatea y guarda el reporte
+      setReport(JSON.stringify(data, null, 2));
     } catch (error) {
       console.error("Error generating report:", error);
       setReport("Error generating the report. Please try again later.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const exportReport = () => {
+    if (!report) {
+      alert("No report available to export");
+      return;
+    }
+
+    const blob = new Blob([report], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "wallet_report.json";
+    link.click();
   };
 
   return (
@@ -43,7 +58,7 @@ export default function TransactionView() {
           <Button
             variant="secondary"
             className="bg-[#1a2942] text-white hover:bg-[#1a2942]/90"
-            onClick={() => alert("Export functionality not implemented yet")}
+            onClick={exportReport}
           >
             Export
           </Button>
@@ -59,9 +74,7 @@ export default function TransactionView() {
         <Card className="rounded-lg border border-slate-200 bg-white">
           <CardContent className="p-8">
             <div className="mb-6 flex justify-end space-x-2 text-sm text-slate-600">
-              <span className="font-mono">
-                0x64feD5e56B54834E7bb47c49ecd7fFa9f1A34FE
-              </span>
+              <span className="font-mono">{address}</span>
               <span>wavynode.eth</span>
             </div>
 

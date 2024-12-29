@@ -100,12 +100,12 @@ export default function StatusDashboard({ address }: IProps) {
 						<ScrollArea className="h-[120px]">
 							{[
 								{
-									icon: "a",
+									icon: "",
 									name: "Binance Deposit",
 									time: "3 days ago",
 								},
 								{
-									icon: "a",
+									icon: "",
 									name: "0x64...4FF",
 									time: "3 days ago",
 								},
