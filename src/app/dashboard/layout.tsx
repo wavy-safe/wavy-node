@@ -10,22 +10,24 @@ export const metadata: Metadata = {
   description: "Find the status of an address",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.className} min-h-screen bg-background flex flex-col`}
-      >
-        <Header />
+    <div
+      className={`${inter.className} min-h-screen bg-background flex flex-col`}
+    >
+      <Header>
         <main className="flex-grow">{children}</main>
         <footer className="py-6 text-center text-sm text-muted-foreground">
-          @wavynode
+          <a
+            href="https://t.me/wavynode"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:underline"
+          >
+            @wavynode
+          </a>
         </footer>
-      </body>
-    </html>
+      </Header>
+    </div>
   );
 }
