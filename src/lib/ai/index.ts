@@ -42,8 +42,6 @@ export const generateReport = async (address: string) => {
 		return `${prev}\n${JSON.stringify(curr)}`
 	}, `${findings}\n\nBlacklisted from:`)
 
-	console.log(findings)
-
 	const res = await mainAgent.run({
 		messages: [
 			{
