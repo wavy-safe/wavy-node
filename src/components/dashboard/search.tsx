@@ -7,11 +7,10 @@ import { Separator } from "@/components/ui/separator";
 import LastExploits from "./exploit";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { ENS_REGEX, EVM_ADDRESS_REGEX } from "@/utils/regex";
 
 const isValidEthereumAddressOrENS = (input: string) => {
-	const ethAddressRegex = /^0x[a-fA-F0-9]{40}$/; // Dirección Ethereum
-	const ensRegex = /^[a-zA-Z0-9-]+\.eth$/; // ENS que termina en .eth
-	return ethAddressRegex.test(input) || ensRegex.test(input);
+	return EVM_ADDRESS_REGEX.test(input) || ENS_REGEX.test(input);
 };
 
 export function Search() {
@@ -36,16 +35,16 @@ export function Search() {
 
 	return (
 		<div className="w-full min-h-[120px] from-white">
-			<div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
+			<div className="mx-auto px-4 py-8 space-y-6">
 				{/* Input de búsqueda */}
 				<div className="flex justify-center flex-col items-center mb-5">
 					<Image src="/wavyNode.svg" alt="Wavy Node Logo" width={150} height={40} className="dark:invert" />
 					<p className="text-3xl font-medium my-3">Wavy Node</p>
 				</div>
-				<div className="relative">
+				<div className="relative w-2/3 mx-auto">
 					<Input
 						type="search"
-						placeholder="Search Wallet or ENS (e.g., 0x... or example.eth)"
+						placeholder="Search Wallet"
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
 						onKeyDown={(e) => e.key === "Enter" && handleSearch()}
