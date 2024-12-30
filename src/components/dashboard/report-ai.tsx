@@ -3,6 +3,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import jsPDF from "jspdf";
+import axios from "axios";
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+if (!baseUrl) {
+  throw new Error("Base URL is not defined. Check your .env.local file.");
+}
 
 export default function ReportAI({ address }: { address: string }) {
   const [report, setReport] = useState<string | null>(null);
@@ -11,20 +18,15 @@ export default function ReportAI({ address }: { address: string }) {
   const generateAIReport = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
-        `${baseUrl}/api/addresses/report?address=${address}`,
-        {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await axios.get(`${baseUrl}/api/addresses/report`, {
+        params: { address },
+      });
 
-      if (!response.ok) {
-        throw new Error("Failed to generate the report");
+      if (response.data.success) {
+        setReport(response.data.data);
+      } else {
+        setReport("No se encontró información para esta dirección.");
       }
-
-      const data = await response.json();
-      setReport(JSON.stringify(data, null, 2));
     } catch (error) {
       console.error("Error generating report:", error);
       setReport("Error generating the report. Please try again later.");
@@ -33,37 +35,35 @@ export default function ReportAI({ address }: { address: string }) {
     }
   };
 
-  const exportReport = () => {
+  const exportReportAsPDF = () => {
     if (!report) {
       alert("No report available to export");
       return;
     }
 
-    const blob = new Blob([report], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "wallet_report.json";
-    link.click();
+    const doc = new jsPDF();
+    const marginX = 10;
+    const marginY = 10;
+    const lineHeight = 10;
+
+    const lines = doc.splitTextToSize(report, 190);
+    lines.forEach((line, index) => {
+      doc.text(line, marginX, marginY + index * lineHeight);
+    });
+
+    doc.save("wallet_report.pdf");
   };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] p-6">
       <main className="mx-auto max-w-5xl">
-        <div className="mb-4 flex justify-end gap-2">
+        <div className="mb-4 flex justify-end">
           <Button
             variant="secondary"
             className="bg-[#1a2942] text-white hover:bg-[#1a2942]/90"
-            onClick={exportReport}
+            onClick={exportReportAsPDF}
           >
-            Export
-          </Button>
-          <Button
-            variant="secondary"
-            className="bg-[#1a2942] text-white hover:bg-[#1a2942]/90"
-            onClick={() => alert("Status functionality not implemented yet")}
-          >
-            View status
+            Export PDF
           </Button>
         </div>
 

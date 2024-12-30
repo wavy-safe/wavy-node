@@ -1,6 +1,7 @@
 import StatusDashboard from "@/components/dashboard/StatusDashboard";
 import BalanceOverview from "@/components/dashboard/balance-overview";
-import Link from "next/link";
+import ReportAI from "@/components/dashboard/report-ai";
+
 
 export default function AddressPage({
   params,
@@ -19,14 +20,9 @@ export default function AddressPage({
       {/* Componente de balance */}
       <BalanceOverview address={address} />
 
-      {/* Enlace a otra sección */}
-      <div className="pt-4">
-        <Link href={`/dashboard/address/${address}/agents`}>
-          <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            View Agents
-          </button>
-        </Link>
-      </div>
+    {/* Componente AI*/}
+      <ReportAI address={address} />
+
     </div>
   );
 }
