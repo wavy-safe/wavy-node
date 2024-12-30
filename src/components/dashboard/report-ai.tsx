@@ -52,7 +52,7 @@ export default function ReportAI({ address }: ReportAIProps) {
     const lineHeight = 10;
 
     const lines = doc.splitTextToSize(report, 190);
-    lines.forEach((line, index) => {
+    lines.forEach((line: string, index: number) => {
       doc.text(line, marginX, marginY + index * lineHeight);
     });
 
