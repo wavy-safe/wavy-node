@@ -15,14 +15,13 @@ export const generateReport = async (address: string) => {
 		.eq('address', address)
 		.returns<IEvent[]>()
 
-
 	// get where it has been blacklisted
 	const { data: blacklists } = await supabase.from('blacklists')
 		.select()
 		.eq('address', address)
 		.returns<IBlacklist[]>()
 
-	if (!blacklists && !events) return 'The address is clean'
+	if (blacklists?.length == 0 && events?.length == 0) return 'The address is clean'
 
 	// Will end up with the following structure:
 	// Malicious events:
@@ -34,14 +33,16 @@ export const generateReport = async (address: string) => {
 	// {blacklist 2}
 	let findings = ''
 
-	if (events) findings = events.reduce((prev, curr) => {
+	if (events && events.length > 0) findings = events.reduce((prev, curr) => {
 		const { address, timestamp, id, amount, ...event } = curr
 		return `${prev}\n${JSON.stringify(event)}`
 	}, 'Malicious events:')
 
-	if (blacklists) findings = blacklists.reduce((prev, curr) => {
+	if (blacklists && blacklists.length > 0) findings = blacklists.reduce((prev, curr) => {
 		return `${prev}\n${JSON.stringify(curr)}`
 	}, `${findings}\n\nBlacklisted from:`)
+
+	console.log(findings)
 
 	const res = await mainAgent.run({
 		messages: [
