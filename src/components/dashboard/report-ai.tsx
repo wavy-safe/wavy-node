@@ -1,4 +1,3 @@
-// report-ai.tsx
 "use client";
 
 import { useState } from "react";
@@ -13,13 +12,10 @@ export default function ReportAI({ address }: { address: string }) {
     setLoading(true);
     try {
       const response = await fetch(
-        "https://fastapi-wallet-api-1015236466818.us-central1.run.app/analyze-wallet",
+        `${baseUrl}/api/addresses/report?address=${address}`,
         {
-          method: "POST",
+          method: "GET",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            wallet_address: address,
-          }),
         }
       );
 
