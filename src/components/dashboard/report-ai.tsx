@@ -60,8 +60,7 @@ export default function ReportAI({ address }: ReportAIProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] p-6">
-      <main className="mx-auto max-w-5xl">
+    <div className="p-6 w-full">
         <div className="mb-4 flex justify-end">
           <Button
             variant="secondary"
@@ -110,7 +109,6 @@ export default function ReportAI({ address }: ReportAIProps) {
             </div>
           </CardContent>
         </Card>
-      </main>
     </div>
   );
 }

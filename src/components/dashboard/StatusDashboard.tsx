@@ -47,7 +47,7 @@ export default function StatusDashboard({ address }: IProps) {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8FAFF] p-6 flex flex-col gap-6">
+    <div className="p-6 flex flex-col gap-6">
       {/* Status Card */}
       <Card className="shadow-lg rounded-lg bg-white border-[#E2E8F0]">
         <CardContent className="p-6">
