@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -48,7 +48,7 @@ function DonutChart({ assets }: { assets: any[] }) {
           const assetValue =
             parseFloat(asset.value) / Math.pow(10, asset.token.decimals || 18);
           const percentage = (assetValue / totalValue) * 100;
-          const strokeDasharray = (percentage / 100) * 427.89; // 427.89 es el perímetro total
+          const strokeDasharray = (percentage / 100) * 427.89; // Perímetro total
           const strokeDashoffset = cumulativePercentage * 4.2789;
           cumulativePercentage += percentage;
 
@@ -81,26 +81,28 @@ export default function BalanceOverview({ address }: IProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    getBalanceData();
-  }, [address]);
-
-  const getBalanceData = async () => {
+  const getBalanceData = useCallback(async () => {
+    setIsLoading(true);
     try {
       const res = await axios.get(
         `/api/addresses/balance?chainId=42161&address=${address}`
       );
       if (res.data && res.data.success) {
         setBalanceData(res.data.data);
+        setError(null); // Resetea el error si la respuesta es exitosa
       } else {
         setError("Invalid response structure.");
       }
-    } catch (error) {
+    } catch (err) {
       setError("Error fetching balance data.");
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [address]);
+
+  useEffect(() => {
+    getBalanceData();
+  }, [getBalanceData]);
 
   if (isLoading)
     return <div className="text-center text-gray-500">Loading...</div>;

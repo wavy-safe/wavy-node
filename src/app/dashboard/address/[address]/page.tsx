@@ -3,12 +3,12 @@ import StatusDashboard from "@/components/dashboard/StatusDashboard";
 import BalanceOverview from "@/components/dashboard/balance-overview";
 import ReportAI from "@/components/dashboard/report-ai";
 
-export default function AddressPage({
-  params,
-}: {
-  params: { address: string };
-}) {
-  const { address } = params;
+interface AddressPageProps {
+params:Promise<{address:string}>
+}
+
+export default async function AddressPage({ params }: AddressPageProps) {
+  const { address } = await params;
 
   return (
     <div className="container mx-auto py-6 space-y-8">
@@ -22,13 +22,13 @@ export default function AddressPage({
         </Link>
       </div>
 
-      {/* Componente de estado */}
+      {/* Status Component */}
       <StatusDashboard address={address} />
 
-      {/* Componente de balance */}
+      {/* Balance Component */}
       <BalanceOverview address={address} />
 
-      {/* Componente AI */}
+      {/* AI Report Component */}
       <ReportAI address={address} />
     </div>
   );

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlertCircle, CheckCircle, ArrowUpRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 interface IProps {
@@ -14,11 +14,8 @@ interface IProps {
 export default function StatusDashboard({ address }: IProps) {
   const [status, setStatus] = useState<any | null>(null);
 
-  useEffect(() => {
-    getStatus();
-  }, []);
-
-  const getStatus = async () => {
+  // Define `getStatus` using useCallback to ensure it remains stable
+  const getStatus = useCallback(async () => {
     try {
       const res = await axios.get(
         `/api/addresses/status?address=${address}&chainId=42161`
@@ -31,7 +28,11 @@ export default function StatusDashboard({ address }: IProps) {
     } catch (error) {
       console.error("Error fetching status:", error);
     }
-  };
+  }, [address]);
+
+  useEffect(() => {
+    getStatus();
+  }, [getStatus]);
 
   if (!status)
     return <div className="text-center text-gray-500"></div>;

@@ -7,11 +7,16 @@ import jsPDF from "jspdf";
 import axios from "axios";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 if (!baseUrl) {
   throw new Error("Base URL is not defined. Check your .env.local file.");
 }
 
-export default function ReportAI({ address }: { address: string }) {
+interface ReportAIProps {
+  address: string;
+}
+
+export default function ReportAI({ address }: ReportAIProps) {
   const [report, setReport] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -62,6 +67,7 @@ export default function ReportAI({ address }: { address: string }) {
             variant="secondary"
             className="bg-[#1a2942] text-white hover:bg-[#1a2942]/90"
             onClick={exportReportAsPDF}
+            disabled={!report}
           >
             Export PDF
           </Button>
@@ -79,7 +85,7 @@ export default function ReportAI({ address }: { address: string }) {
                 <section>
                   <h2 className="mb-3 text-lg font-semibold">AI Report</h2>
                   <p className="text-slate-600 leading-relaxed whitespace-pre-wrap">
-                    {report}
+                    {report.replace(/"/g, "&quot;")}
                   </p>
                 </section>
               ) : (
@@ -87,7 +93,7 @@ export default function ReportAI({ address }: { address: string }) {
                   <section>
                     <h2 className="mb-3 text-lg font-semibold">Report Info</h2>
                     <p className="text-slate-600 leading-relaxed">
-                      Click "Generate AI Report" to retrieve wallet analysis.
+                      Click &quot;Generate AI Report&quot; to retrieve wallet analysis.
                     </p>
                   </section>
                 </>
