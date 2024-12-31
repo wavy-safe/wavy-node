@@ -1,17 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import jsPDF from "jspdf";
 import axios from "axios";
 import { marked } from 'marked'
-
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-if (!baseUrl) {
-	throw new Error("Base URL is not defined. Check your .env.local file.");
-}
 
 interface ReportAIProps {
 	address: string;
@@ -28,7 +21,7 @@ export default function ReportAI({ address }: ReportAIProps) {
 	const generateAIReport = async () => {
 		setLoading(true);
 		try {
-			const response = await axios.get(`${baseUrl}/api/addresses/report`, {
+			const response = await axios.get(`/api/addresses/report`, {
 				params: { address },
 			});
 
