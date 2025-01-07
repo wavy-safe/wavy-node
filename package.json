@@ -9,7 +9,7 @@
 		"dev": "next dev",
 		"build": "next build",
 		"analyze": "ANALYZE=true next build",
-		"heap-increased-build": "node --max-old-space-size=700 node_modules/next/dist/bin/next build --experimental-debug-memory-usage",
+		"heap-increased-build": "node --max-old-space-size=700 node_modules/next/dist/bin/next build",
 		"start": "next start",
 		"lint": "next lint",
 		"postbuild": "next-sitemap"
