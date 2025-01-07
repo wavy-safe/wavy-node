@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import jsPDF from "jspdf";
+// import jsPDF from "jspdf";
 import axios from "axios";
 import { marked } from 'marked'
 
@@ -45,24 +44,21 @@ export default function ReportAI({ address }: ReportAIProps) {
 		}
 	};
 
-	const exportReportAsPDF = () => {
-		if (!report) {
-			alert("No report available to export");
-			return;
-		}
-
-		const doc = new jsPDF();
-		const marginX = 10;
-		const marginY = 10;
-		const lineHeight = 10;
-
-		const lines = doc.splitTextToSize(report, 190);
-		lines.forEach((line: string, index: number) => {
-			doc.text(line, marginX, marginY + index * lineHeight);
-		});
-
-		doc.save("wallet_report.pdf");
-	};
+	// const exportReportAsPDF = () => {
+	// 	if (!report) {
+	// 		alert("No report available to export");
+	// 		return;
+	// 	}
+	// 	const doc = new jsPDF();
+	// 	const marginX = 10;
+	// 	const marginY = 10;
+	// 	const lineHeight = 10;
+	// 	const lines = doc.splitTextToSize(report, 190);
+	// 	lines.forEach((line: string, index: number) => {
+	// 		doc.text(line, marginX, marginY + index * lineHeight);
+	// 	});
+	// 	doc.save("wallet_report.pdf");
+	// };
 
 	return (
 		<div className="p-6 w-full">
