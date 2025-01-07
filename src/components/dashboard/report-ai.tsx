@@ -32,7 +32,8 @@ export default function ReportAI({ address }: ReportAIProps) {
 			});
 
 			if (response.data.success) {
-				setReport(response.data.data);
+				const htmlReport = await marked(response.data.data)
+				setReport(htmlReport);
 			} else {
 				setReport("No se encontró información para esta dirección.");
 			}
@@ -84,7 +85,7 @@ export default function ReportAI({ address }: ReportAIProps) {
 						{report ? (
 							<section>
 								<h2 className="mb-3 text-lg font-semibold">AI Report</h2>
-								<p dangerouslySetInnerHTML={{ __html: marked(report) }} className="text-slate-600 leading-relaxed whitespace-pre-wrap">
+								<p dangerouslySetInnerHTML={{ __html: report }} className="text-slate-600 leading-relaxed whitespace-pre-wrap">
 									{/* {report.replace(/"/g, "&quot;")} */}
 								</p>
 							</section>
