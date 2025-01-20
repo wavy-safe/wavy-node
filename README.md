@@ -12,3 +12,7 @@
 
 
 ```
+
+Example usage of Push Channel Notification from the command line:
+
+npm run notify "TestFromCommandLine" "This is a test from the command line."
