@@ -49,48 +49,6 @@ export default function Footer() {
             <Github className="h-4 w-4 sm:h-5 sm:w-5" />
           </Link>
 
-          <div style={{position: 'relative', zIndex: 1000}}>
-            <button
-              onClick={() => setIsPopupOpen(true)}
-              className="bg-blue-600 text-white px-4 py-2 rounded"
-            >
-              {walletInfo ? 'Wallet Connected' : 'Connect Wallet'}
-            </button>
-
-            {walletInfo && (
-              <div className="mt-4 space-y-2">
-                <p>Connected Address: {walletInfo.address}</p>
-                <p>Network Name: {walletInfo.network.name}</p>
-                <p>Chain ID: {walletInfo.network.chainId}</p>
-              </div>
-            )}
-
-            <WalletPopup
-              isOpen={isPopupOpen}
-              onClose={() => setIsPopupOpen(false)}
-              onConnect={handleConnect}
-            />
-          </div>
-
-          <div style={{position: 'relative', zIndex: 1000}}>
-            {walletInfo && (
-              <>
-                <button
-                  onClick={() => setIsHelpOpen(true)}
-                  className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  Help Channel
-                </button>
-
-                <PushHelpChannel
-                  isOpen={isHelpOpen}
-                  onClose={() => setIsHelpOpen(false)}
-                  address={walletInfo.address}
-                />
-              </>
-            )}
-          </div>
         </div>
         <p className="mt-4 text-center text-xs text-[#64748B] sm:mt-6 sm:text-sm">
           &copy; 2023 Wavy Node. All rights reserved.
