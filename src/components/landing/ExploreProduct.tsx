@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 export default function ExploreProduct() {
@@ -34,7 +36,7 @@ export default function ExploreProduct() {
         </div>
       </div>
 
-      <div className="relative px-4 pb-16 text-center sm:px-6 lg:px-8"> 
+      <div className="relative px-4 pb-16 text-center sm:px-6 lg:px-8">
         <button className="mt-8 rounded-lg bg-[#1A2E44] px-8 py-4 text-base font-medium text-white transition-colors hover:bg-[#1A2E44]/90 sm:text-lg">
           Feedback
         </button>

@@ -13,6 +13,14 @@
 
 ```
 
+<<<<<<< HEAD
 Example usage of Push Channel Notification from the command line:
 
 npm run notify "TestFromCommandLine" "This is a test from the command line."
+=======
+# Things to do
+- [ ] Refine last dapps used in /api/addresses/status
+- [ ] Fix pagination at /api/addresses/balance
+- [ ] Add exploits to db(?)
+- [ ] Remove `chainId` from /api/address/status
+>>>>>>> develop
