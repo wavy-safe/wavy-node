@@ -19,13 +19,9 @@ export default function Home() {
     <main className="flex min-h-screen flex-col">
       <Navbar />
       <Hero />
-
-      <div className="flex flex-col items-center justify-center space-y-4 py-20">
-        <PushHelpChat />
-      </div>
-
+      <PushHelpChat />
       <ExploreProduct />
       <Footer />
     </main>
   );
-}
+} 
