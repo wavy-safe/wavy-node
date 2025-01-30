@@ -1,7 +1,7 @@
 import Link from "next/link";
-import StatusDashboard from "@/components/dashboard/StatusDashboard";
-import BalanceOverview from "@/components/dashboard/balance-overview";
-import ReportAI from "@/components/dashboard/report-ai";
+import StatusDashboard from "@/components/search/StatusDashboard";
+import BalanceOverview from "@/components/search/balance-overview";
+import ReportAI from "@/components/search/report-ai";
 import { ArrowLeft } from 'lucide-react'
 
 interface AddressPageProps {
@@ -15,7 +15,7 @@ export default async function AddressPage({ params }: AddressPageProps) {
 		<div className="container mx-auto py-6 space-y-8">
 			<div className="flex justify-start items-center">
 				<Link
-					href="/dashboard"
+					href="/search"
 					className="px-4 py-2 hover:bg-[#eeeeee] rounded-lg"
 				>
 					<ArrowLeft />

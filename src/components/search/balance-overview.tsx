@@ -48,7 +48,7 @@ function DonutChart({ assets }: { assets: any[] }) {
 					const assetValue =
 						parseFloat(asset.value) / Math.pow(10, asset.token.decimals || 18);
 					const percentage = (assetValue / totalValue) * 100;
-					const strokeDasharray = (percentage / 100) * 427.89; // Perímetro total
+					const strokeDasharray = (percentage / 100) * 427.89;
 					const strokeDashoffset = cumulativePercentage * 4.2789;
 					cumulativePercentage += percentage;
 
@@ -89,7 +89,7 @@ export default function BalanceOverview({ address }: IProps) {
 			);
 			if (res.data && res.data.success) {
 				setBalanceData(res.data.data);
-				setError(null); // Resetea el error si la respuesta es exitosa
+				setError(null); 
 			} else {
 				setError("Invalid response structure.");
 			}

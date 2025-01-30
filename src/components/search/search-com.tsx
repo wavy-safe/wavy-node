@@ -30,7 +30,7 @@ export function Search() {
 		}
 
 		setError(null); // Resetea el mensaje de error si todo está correcto
-		router.push(`/dashboard/address/${query}`);
+		router.push(`/search/address/${query}`);
 	};
 
 	return (

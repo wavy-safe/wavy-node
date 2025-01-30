@@ -14,13 +14,13 @@ export default function Navbar() {
   const { login } = useLogin({
     onComplete: (_user, _isNewUser, wasAlreadyAuthenticated, _loginMethod, _linkedAccount) => {
       if (wasAlreadyAuthenticated) return;
-      router.push("/dashboard");
+      router.push("/search");
     },
   });
 
   const loginOrRedirect = () => {
     if (!authenticated) return login();
-    router.push("/dashboard");
+    router.push("/search");
   };
 
   const [isModalOpen, setIsModalOpen] = useState(false);

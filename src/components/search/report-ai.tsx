@@ -8,10 +8,6 @@ import { marked } from 'marked'
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-if (!baseUrl) {
-	throw new Error("Base URL is not defined. Check your .env.local file.");
-}
-
 interface ReportAIProps {
 	address: string;
 }
