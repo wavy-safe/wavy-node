@@ -9,10 +9,10 @@ export default function ExploreProduct() {
   const router = useRouter();
   const { authenticated, ready } = usePrivy();
   const { login } = useLogin({
-    onComplete: (_user, _isNewUser, wasAlreadyAuthenticated, _loginMethod, _linkedAccount) => {
+    onComplete: ({ user, isNewUser, wasAlreadyAuthenticated, loginMethod, loginAccount }) => {
       if (wasAlreadyAuthenticated) return;
       router.push("/search");
-    },
+    },    
   });
 
   const loginOrRedirect = () => {

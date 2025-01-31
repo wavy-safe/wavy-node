@@ -6,7 +6,7 @@ import { ethers } from "ethers";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { X, MessageCircle } from "lucide-react"; // Iconos para abrir/cerrar el chat
+import { X, MessageCircle } from "lucide-react"; 
 
 export default function PushHelpChat() {
   const [signer, setSigner] = useState<ethers.Signer | null>(null);
@@ -115,7 +115,7 @@ export default function PushHelpChat() {
           <CardHeader className="relative bg-[#1A2E44] text-white flex justify-between items-center p-4 rounded-t-lg">
             <CardTitle className="text-lg">Wavy Node Chat</CardTitle>
 
-            {/* Botón de cierre alineado y con mejor espacio */}
+            
             <Button
               variant="ghost"
               onClick={() => setIsChatOpen(false)}
