@@ -86,7 +86,7 @@ export default function BalanceOverview({ address }: IProps) {
 		try {
 			const res = await axios.get(
 				`/api/addresses/balance?chainId=42161&address=${address}`
-			);
+			);	
 			if (res.data && res.data.success) {
 				setBalanceData(res.data.data);
 				setError(null); 
