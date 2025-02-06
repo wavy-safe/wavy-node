@@ -5,7 +5,6 @@ import { getAccessToken } from "@privy-io/react-auth";
 dotenv.config();
 
 const baseUrl = process.env.BASE_URL;
-const fastApiUrl = process.env.FASTAPI_URL;
 const arbChainId = process.env.NEXT_PUBLIC_ARB_CHAIN_ID;
 
 if (!baseUrl) {
@@ -23,8 +22,7 @@ export const apiUtils = {
         const url = `${isFastApi ? fastApiUrl : baseUrl}${endpoint}`;
         const headers = {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${accessToken}`,
-            "x-prvy-auth": accessToken,
+            "Authorization": `Bearer ${accessToken}`, 
         };
 
         try {
@@ -41,3 +39,4 @@ export const apiUtils = {
     getWalletStatus: (dirtyAddress, apiKey) => apiUtils.createRequest(`/wallets/${dirtyAddress}/status?chainId=${arbChainId}&apiKey=${apiKey}`),
     reportWallet: (dirtyAddress, apiKey) => apiUtils.createRequest(`/wallets/${dirtyAddress}/report?apiKey=${apiKey}`, "POST"),
 };
+	
