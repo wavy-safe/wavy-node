@@ -2,19 +2,22 @@ import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Plus, Pencil, Trash2 } from "lucide-react"
-import { CreateWebhookDialog } from "@/components/dashboard/create-webhook-dialog"
+import { WavyCreateDialog} from "@/components/dashboard/wavy-create-dialogo"
 
 export default function WebhooksPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-primary">Webhooks</h1>
-        <CreateWebhookDialog>
+        <WavyCreateDialog
+          title="Create Webhook"
+          description="Add a new webhook endpoint to receive event notifications."
+        >
           <Button className="bg-primary hover:bg-primary/90">
             <Plus className="mr-2 h-4 w-4" />
             Create Webhook
           </Button>
-        </CreateWebhookDialog>
+        </WavyCreateDialog>
       </div>
       <div className="rounded-lg border border-border bg-card/50 backdrop-blur">
         <Table>
@@ -28,10 +31,12 @@ export default function WebhooksPage() {
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell className="font-mono">https:</TableCell>
+              <TableCell className="font-mono">https://api.example.com/webhook</TableCell>
               <TableCell>payment.success, payment.failed</TableCell>
               <TableCell>
-                <Badge className="bg-primary/20 text-primary hover:bg-primary/30">Active</Badge>
+                <Badge variant="outline" className="bg-primary/20 text-primary hover:bg-primary/30">
+                  Active
+                </Badge>
               </TableCell>
               <TableCell>
                 <div className="flex gap-2">

@@ -1,6 +1,9 @@
 "use client"
 
-import { Key, Home, MapPin, Webhook } from "lucide-react"
+import { Key, Home, Webhook } from "lucide-react"
+import Link from "next/link"
+import Image from "next/image"
+import { usePathname } from "next/navigation"
 import {
   Sidebar,
   SidebarContent,
@@ -9,19 +12,25 @@ import {
   SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
-  SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuButton,
 } from "@/components/ui/sidebar"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
 
-export function DashboardSidebar() {
+export function WavyDashboardSidebar() {
   const pathname = usePathname()
 
   return (
-    <Sidebar className="border-r border-border bg-sidebar-background">
+    <Sidebar>
       <SidebarHeader>
-        <div className="px-4 py-4">
+      <div className="flex items-center gap-2 px-4 py-4">
+          {/* Icono del logo */}
+          <Image
+            src="/wavyNode.svg" 
+            alt="WavyNode Logo"
+            width={32}
+            height={32}
+            className="rounded-md" 
+          />
           <h1 className="text-xl font-bold text-primary">WavyNode</h1>
         </div>
       </SidebarHeader>
@@ -32,23 +41,23 @@ export function DashboardSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={pathname === "/dashboard"}>
-                  <Link href="/dashboard">
+                  <Link href="/dashboard" className="flex items-center gap-2">
                     <Home className="h-4 w-4" />
                     <span>Dashboard</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={pathname === "/api-keys"}>
-                  <Link href="/api-keys">
+                <SidebarMenuButton asChild isActive={pathname === "/dashboard/api-keys"}>
+                  <Link href="/dashboard/api-keys" className="flex items-center gap-2">
                     <Key className="h-4 w-4" />
                     <span>API Keys</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive={pathname === "/webhooks"}>
-                  <Link href="/webhooks">
+                <SidebarMenuButton asChild isActive={pathname === "/dashboard/webhooks"}>
+                  <Link href="/dashboard/webhooks" className="flex items-center gap-2">
                     <Webhook className="h-4 w-4" />
                     <span>Webhooks</span>
                   </Link>

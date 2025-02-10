@@ -1,29 +1,22 @@
-import "../globals.css"
-import { Inter } from "next/font/google"
+"use client"
+
 import { SidebarProvider } from "@/components/ui/sidebar"
-import { Toaster } from "@/components/ui/toaster"
-import { DashboardSidebar } from "@/components/dashboard/dashboard-sidebar"
-import type React from "react"
+import { WavyDashboardSidebar } from "@/components/dashboard/wavy-dashboard-sidebar"
+import type { ReactNode } from "react"
 
-const inter = Inter({ subsets: ["latin"] })
-
-export default function RootLayout({
+export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={inter.className}>
-        <SidebarProvider>
-          <div className="flex min-h-screen bg-background">
-            <DashboardSidebar />
-            <main className="flex-1 p-6">{children}</main>
-          </div>
-          <Toaster />
-        </SidebarProvider>
-      </body>
-    </html>
+    <SidebarProvider defaultOpen={true}>
+      <div className="flex min-h-screen bg-background">
+        <WavyDashboardSidebar />
+        <main className="flex-1 p-6">{children}</main>
+      </div>
+    </SidebarProvider>
   )
 }
+
 
