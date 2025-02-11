@@ -19,14 +19,11 @@ axiosInstance.interceptors.request.use(
     const accessToken = await getAccessToken();
 
     if (accessToken) {
+     
       config.headers = config.headers || {};
       config.headers["Authorization"] = `Bearer ${accessToken}`;
       config.headers["x-prvy-auth"] = accessToken;
-
-      const appId = process.env.NEXT_PUBLIC_PRIVY_APP_ID;
-      if (appId) {
-        config.headers["x-app-id"] = appId;
-      }
+      config.headers["x-app-id"] = process.env.NEXT_PUBLIC_PRIVY_APP_ID || "";
     }
 
     return config;
