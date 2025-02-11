@@ -5,7 +5,11 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { AlertCircle, CheckCircle, ArrowUpRight } from "lucide-react";
 import { useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import axiosInstance from "@/lib/auth";
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+const apiKey = process.env.NEXT_PUBLIC_API_KEY;
+const arbChainId = process.env.NEXT_PUBLIC_ARB_CHAIN_ID;
 
 interface IProps {
   address: string;
@@ -14,12 +18,12 @@ interface IProps {
 export default function StatusDashboard({ address }: IProps) {
   const [status, setStatus] = useState<any | null>(null);
 
-  // Define `getStatus` using useCallback to ensure it remains stable
   const getStatus = useCallback(async () => {
     try {
-      const res = await axios.get(
-        `/api/addresses/status?address=${address}&chainId=42161`
+      const res = await axiosInstance.get(
+        `${baseUrl}/wallets/${address}/status?chainId=${arbChainId}&apiKey=${apiKey}`
       );
+
       if (res.data && res.data.success) {
         setStatus(res.data.data);
       } else {
@@ -34,8 +38,7 @@ export default function StatusDashboard({ address }: IProps) {
     getStatus();
   }, [getStatus]);
 
-  if (!status)
-    return <div className="text-center text-gray-500"></div>;
+  if (!status) return <div className="text-center text-gray-500"></div>;
 
   const hasTags = status.tags && status.tags.length > 0;
   const statusLabel = hasTags ? "Marked" : "Clean";
@@ -48,7 +51,6 @@ export default function StatusDashboard({ address }: IProps) {
 
   return (
     <div className="p-6 flex flex-col gap-6">
-      {/* Status Card */}
       <Card className="shadow-lg rounded-lg bg-white border-[#E2E8F0]">
         <CardContent className="p-6">
           <div className="flex flex-col gap-6">
@@ -86,9 +88,7 @@ export default function StatusDashboard({ address }: IProps) {
         </CardContent>
       </Card>
 
-      {/* Grid Section */}
       <div className="grid md:grid-cols-2 gap-6">
-        {/* Latest Interacted dApps */}
         <Card className="shadow-lg rounded-lg bg-white border-[#E2E8F0]">
           <CardHeader>
             <CardTitle className="text-sm font-semibold">
@@ -119,7 +119,6 @@ export default function StatusDashboard({ address }: IProps) {
           </CardContent>
         </Card>
 
-        {/* Latest Transactions */}
         <Card className="shadow-lg rounded-lg bg-white border-[#E2E8F0]">
           <CardHeader>
             <CardTitle className="text-sm font-semibold">
