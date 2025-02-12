@@ -16,14 +16,17 @@ const axiosInstance: AxiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   async (config: InternalAxiosRequestConfig) => {
-    const accessToken = await getAccessToken();
+    try {
+      const accessToken = await getAccessToken();
 
-    if (accessToken) {
-     
-      config.headers = config.headers || {};
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
-      config.headers["x-prvy-auth"] = accessToken;
-      config.headers["x-app-id"] = process.env.NEXT_PUBLIC_PRIVY_APP_ID || "";
+      if (accessToken) {
+        config.headers = config.headers || {};
+        config.headers["x-privy-token"] = accessToken;
+      } else {
+        console.warn("No se pudo obtener el token de Privy.");
+      }
+    } catch (error) {
+      console.error("Error obteniendo el token de Privy:", error);
     }
 
     return config;
