@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Key, Home, Webhook, ChevronDown, ChevronUp } from "lucide-react"; // ✅ Nuevos íconos importados
+import { Key, Home, Webhook, ChevronDown, ChevronUp } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -43,7 +43,7 @@ export function WavyDashboardSidebar() {
           )}
         </div>
 
-        {/* ✅ Botón de colapso actualizado */}
+     
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="p-2 rounded hover:bg-[hsl(var(--sidebar-accent,240,3.7%,15.9%))] transition transform hover:scale-110"
