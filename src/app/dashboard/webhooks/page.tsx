@@ -40,10 +40,10 @@ export default function WebhooksPage() {
 
   const handleCreateAddress = () => {
     const newAddress: Address = {
-      id: crypto.randomUUID(), // 🔥 Genera un ID único
+      id: crypto.randomUUID(), 
       label: "New address",
     }
-    setAddresses((prevAddresses) => [...prevAddresses, newAddress]) // Mantiene la inmutabilidad del estado
+    setAddresses((prevAddresses) => [...prevAddresses, newAddress]) 
     toast({
       title: "Address created",
       description: "A new address has been added.",
