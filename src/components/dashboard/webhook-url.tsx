@@ -4,20 +4,36 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Pencil } from "lucide-react"
 import { useState } from "react"
+import { WebhookUrlProps } from "@/types/WebhookUrl"
+import axiosInstance from "@/lib/auth"
 
-interface WebhookUrlProps {
-  url: string
-  onUpdate: (url: string) => void
-}
-
-export function WebhookUrl({ url: initialUrl, onUpdate }: WebhookUrlProps) {
+export function WebhookUrl({ url: initialUrl, baseUrl, apiKey, onUpdate }: WebhookUrlProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [url, setUrl] = useState(initialUrl)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleUpdate = () => {
-    if (url.trim()) {
-      onUpdate(url)
-      setIsEditing(false)
+  const handleUpdate = async () => {
+    if (!url.trim()) return
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      const response = await axiosInstance.post(`/webhooks?apiKey=${apiKey}`, {
+        webhookUrl: url,
+      })
+
+      if (response.status === 200 || response.status === 201) {
+        onUpdate(url)
+        setIsEditing(false)
+      } else {
+        throw new Error(`Unexpected response status: ${response.status}`)
+      }
+    } catch (err: any) {
+      setError(err.response?.data?.message || err.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -32,8 +48,8 @@ export function WebhookUrl({ url: initialUrl, onUpdate }: WebhookUrlProps) {
               onChange={(e) => setUrl(e.target.value)}
               className="flex-1 bg-background/50 backdrop-blur"
             />
-            <Button onClick={handleUpdate} className="bg-primary hover:bg-primary/90">
-              Save
+            <Button onClick={handleUpdate} className="bg-primary hover:bg-primary/90" disabled={loading}>
+              {loading ? "Saving..." : "Save"}
             </Button>
           </div>
         ) : (
@@ -50,7 +66,7 @@ export function WebhookUrl({ url: initialUrl, onUpdate }: WebhookUrlProps) {
           </>
         )}
       </div>
+      {error && <p className="text-red-500">{error}</p>}
     </div>
   )
 }
-
