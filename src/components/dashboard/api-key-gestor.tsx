@@ -1,19 +1,16 @@
 import { Button } from "@/components/ui/button"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Plus, Trash2 } from "lucide-react"
-import { WavyCreateDialog } from "@/components/dashboard/wavy-create-dialogo"
+
 
 export default function ApiKeys() {
   return (
+
+
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold text-primary">API Keys</h1>
-        <WavyCreateDialog title="Create API Key" description="Create a new API key to authenticate your requests.">
-          <Button className="bg-primary hover:bg-primary/90">
-            <Plus className="mr-2 h-4 w-4" />
-            Create Key
-          </Button>
-        </WavyCreateDialog>
+        
       </div>
       <div className="rounded-lg border border-border bg-card/50 backdrop-blur">
         <Table>
@@ -27,7 +24,7 @@ export default function ApiKeys() {
           </TableHeader>
           <TableBody>
             <TableRow>
-              <TableCell className="font-mono">sk_test_123...</TableCell>
+              <TableCell className="font-mono">privy_test_123...</TableCell>
               <TableCell>2024-02-04</TableCell>
               <TableCell>Never</TableCell>
               <TableCell>
