@@ -18,44 +18,36 @@ interface AddressesTableProps {
 }
 
 export function AddressesTable({ apiKey }: AddressesTableProps) {
-  const [addresses, setAddresses] = useState<Address[]>([]) // Estado inicial vacío
+  const [addresses, setAddresses] = useState<Address[]>([])
   const [newAddress, setNewAddress] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [adding, setAdding] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  
   useEffect(() => {
-    const fetchAddresses = async () => {
-      setLoading(true)
-      setError(null)
-      try {
-        const response = await axiosInstance.get(`/addresses?apiKey=${apiKey}`)
-
-        if (response.data?.success && Array.isArray(response.data.data)) {
-          setAddresses(response.data.data)
-        } else {
-          setAddresses([]) // Asegurar un estado seguro
-          setError("Invalid response format")
-        }
-      } catch (err) {
-        console.error("Error fetching addresses:", err)
-        setError("Failed to load addresses")
-      } finally {
-        setLoading(false)
-      }
-    }
-
     fetchAddresses()
   }, [apiKey])
 
-  
+  const fetchAddresses = async () => {
+    try {
+      const response = await axiosInstance.get(`/addresses?apiKey=${apiKey}`)
+      if (response.data?.success && Array.isArray(response.data.data)) {
+        setAddresses(response.data.data)
+      }
+    } catch (err) {
+      console.error("Error fetching addresses:", err)
+      setError("Failed to load addresses")
+    }
+  }
+
   const handleAddAddress = async () => {
     if (!newAddress.trim()) {
       setError("Address cannot be empty")
       return
     }
 
-    setLoading(true)
+    setAdding(true)
+    setError(null)
+
     try {
       const newEntry = {
         address: newAddress,
@@ -63,31 +55,34 @@ export function AddressesTable({ apiKey }: AddressesTableProps) {
       }
       const response = await axiosInstance.post(`/addresses?apiKey=${apiKey}`, newEntry)
 
-      if (response.data?.success && response.data.data) {
-        setAddresses([...addresses, response.data.data]) 
-        setNewAddress("") 
+      if (response.data?.success) {
+        if (response.data.data) {
+          setAddresses((prev) => [...prev, response.data.data])
+        } else {
+          console.warn("API returned success but no data, refetching addresses...")
+          fetchAddresses() 
+        }
+        setNewAddress("")
+        setError(null)
       } else {
-        setError("Failed to add address")
+        console.error("API response error:", response.data)
+        setError(response.data?.message || "Failed to add address")
       }
-    } catch (err) {
-      console.error("Error adding address:", err)
-      setError("Failed to add address")
+    } catch (err: any) {
+      console.error("Error adding address:", err.response?.data || err)
+      setError(err.response?.data?.message || "Failed to add address")
     } finally {
-      setLoading(false)
+      setAdding(false)
     }
   }
 
-  
   const handleDeleteAddress = async (id: number) => {
-    setLoading(true)
     try {
       await axiosInstance.delete(`/addresses/${id}?apiKey=${apiKey}`)
-      setAddresses(addresses.filter((addr) => addr.id !== id)) 
+      setAddresses((prev) => prev.filter((addr) => addr.id !== id))
     } catch (err) {
       console.error("Error deleting address:", err)
       setError("Failed to delete address")
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -100,9 +95,9 @@ export function AddressesTable({ apiKey }: AddressesTableProps) {
           placeholder="Enter wallet address..."
           className="flex-1"
         />
-        <Button className="bg-primary hover:bg-primary/90" onClick={handleAddAddress} disabled={loading}>
+        <Button className="bg-primary hover:bg-primary/90" onClick={handleAddAddress} disabled={adding}>
           <Plus className="mr-2 h-4 w-4" />
-          Add
+          {adding ? "Adding..." : "Add"}
         </Button>
       </div>
 
@@ -119,13 +114,7 @@ export function AddressesTable({ apiKey }: AddressesTableProps) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {loading ? (
-              <TableRow>
-                <TableCell colSpan={4} className="text-center py-4">
-                  Loading addresses...
-                </TableCell>
-              </TableRow>
-            ) : addresses.length > 0 ? (
+            {addresses.length > 0 ? (
               addresses.map((address) => (
                 <TableRow key={address.id} className="hover:bg-transparent">
                   <TableCell className="font-mono text-muted-foreground">{address.id}</TableCell>
