@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next-on-pages",
+    "postinstall": "patch-package",
     "start": "next start",
     "lint": "next lint",
     "postbuild": "next-sitemap"
