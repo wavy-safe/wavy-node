@@ -3,17 +3,41 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
+import axiosInstance from "@/lib/auth"
 
 interface WebhookSetupProps {
+  apiKey: string
   onSave: (url: string) => void
 }
 
-export function WebhookSetup({ onSave }: WebhookSetupProps) {
+export function WebhookSetup({ apiKey, onSave }: WebhookSetupProps) {
   const [url, setUrl] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  const handleSave = () => {
-    if (url.trim()) {
-      onSave(url)
+  const handleSave = async () => {
+    if (!url.trim()) {
+      setError("Webhook URL cannot be empty")
+      return
+    }
+
+    setLoading(true)
+    setError(null)
+
+    try {
+      // 🔥 Enviar una solicitud POST para crear un nuevo webhook con la URL correcta
+      const response = await axiosInstance.post(`/webhooks?apiKey=${apiKey}`, { url }) // ✅ Enviar `url` correctamente
+
+      if (response.data.success) {
+        onSave(url) // ✅ Guardar la URL del webhook en la UI
+      } else {
+        throw new Error(response.data.message || "Failed to create webhook")
+      }
+    } catch (err: any) {
+      console.error("Error creating webhook:", err.response?.data || err)
+      setError(err.response?.data?.message || "Failed to create webhook")
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -27,11 +51,11 @@ export function WebhookSetup({ onSave }: WebhookSetupProps) {
           onChange={(e) => setUrl(e.target.value)}
           className="bg-background/50 backdrop-blur"
         />
-        <Button onClick={handleSave} className="w-full bg-primary hover:bg-primary/90">
-          Save
+        <Button onClick={handleSave} className="w-full bg-primary hover:bg-primary/90" disabled={loading}>
+          {loading ? "Saving..." : "Save"}
         </Button>
+        {error && <p className="text-red-500">{error}</p>}
       </div>
     </div>
   )
 }
-
