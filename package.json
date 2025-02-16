@@ -43,6 +43,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.7",
     "@next/bundle-analyzer": "^15.1.6",
     "@types/node": "22.9.0",
     "@types/react": "18.3.12",
