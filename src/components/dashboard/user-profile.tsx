@@ -1,6 +1,6 @@
 "use client";
 
-import { usePrivy } from "@privy-io/react-auth";
+import { User } from "@privy-io/react-auth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,18 +14,20 @@ import {
 import { LogOut } from "lucide-react";
 import { useMemo } from "react";
 
-export default function UserProfile() {
-  const { user, authenticated, ready, logout } = usePrivy();
+interface UserProfileProps {
+  user: User | null;
+  logout: () => Promise<void>;
+}
 
-  // Obtener el nombre de usuario con la misma lógica que el Header
+export default function UserProfile({ user, logout }: UserProfileProps) {
   const userName = useMemo<string>(() => {
-    if (!ready || !user) return "Usuario";
+    if (!user) return "Usuario";
 
-    if (user?.email) return user.email.address; // Priorizar el email
-    if (user?.wallet) return user.wallet.address; // Si no hay email, usar la wallet
+    if (user.email) return user.email.address; // Priorizar el email
+    if (user.wallet) return user.wallet.address; // Si no hay email, usar la wallet
 
     return "Usuario";
-  }, [ready, user]);
+  }, [user]);
 
   return (
     <DropdownMenu>
@@ -64,4 +66,3 @@ export default function UserProfile() {
     </DropdownMenu>
   );
 }
-

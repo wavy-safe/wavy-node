@@ -16,7 +16,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar";
-import { usePrivy } from "@privy-io/react-auth"; // Importar Privy
+import { usePrivy, User } from "@privy-io/react-auth"; // Importar Privy y User
 import UserProfile from "@/components/dashboard/user-profile"; // Importar UserProfile
 
 export function WavyDashboardSidebar() {
@@ -126,7 +126,7 @@ export function WavyDashboardSidebar() {
       {/* User Profile en el Sidebar */}
       {authenticated && (
         <div className="p-4 border-t border-[hsl(var(--sidebar-border,240,3.7%,15.9%))]">
-          <UserProfile user={user} logout={logout} />
+          <UserProfile user={user as User | null} logout={logout} />
         </div>
       )}
     </Sidebar>
