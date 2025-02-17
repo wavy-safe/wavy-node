@@ -5,7 +5,7 @@ import { Key, Webhook, BookOpen } from "lucide-react";
 
 export default function DashboardPage() {
   const handleDocumentationClick = () => {
-    window.open("https://wavynode.com", "_blank");
+    window.open("https://docs.wavynode.com/", "_blank");
   };
 
   return (
