@@ -25,11 +25,11 @@ export function WebhookSetup({ apiKey, onSave }: WebhookSetupProps) {
     setError(null)
 
     try {
-      // 🔥 Enviar una solicitud POST para crear un nuevo webhook con la URL correcta
-      const response = await axiosInstance.post(`/webhooks?apiKey=${apiKey}`, { url }) // ✅ Enviar `url` correctamente
+     
+      const response = await axiosInstance.post(`/webhooks?apiKey=${apiKey}`, { url }) 
 
       if (response.data.success) {
-        onSave(url) // ✅ Guardar la URL del webhook en la UI
+        onSave(url)
       } else {
         throw new Error(response.data.message || "Failed to create webhook")
       }

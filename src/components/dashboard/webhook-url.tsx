@@ -14,14 +14,14 @@ export function WebhookUrl({ baseUrl, apiKey, onUpdate }: WebhookUrlProps) {
   const [error, setError] = useState<string | null>(null)
   const [webhookId, setWebhookId] = useState<number | null>(null)
 
-  // 🔥 Obtener el webhook existente al cargar la página
+ 
   useEffect(() => {
     const fetchWebhook = async () => {
       try {
         const response = await axiosInstance.get(`/webhooks?apiKey=${apiKey}`)
         if (response.data.success && response.data.data.length > 0) {
-          setWebhookId(response.data.data[0].id) // ✅ Guardamos el ID
-          setUrl(response.data.data[0].url) // ✅ Usamos la URL existente
+          setWebhookId(response.data.data[0].id) 
+          setUrl(response.data.data[0].url) 
         }
       } catch (err) {
         console.error("Error fetching webhook:", err)
@@ -46,13 +46,13 @@ export function WebhookUrl({ baseUrl, apiKey, onUpdate }: WebhookUrlProps) {
         throw new Error("No existing webhook found")
       }
 
-      // 🔥 Ahora enviamos la solicitud PATCH para actualizarlo
+      
       const response = await axiosInstance.patch(`/webhooks/${webhookId}?apiKey=${apiKey}`, {
-        url, // ✅ Aseguramos que enviamos el campo correcto
+        url, 
       })
 
       if (response.data.success) {
-        onUpdate(url) // ✅ Actualiza la UI
+        onUpdate(url) 
         setIsEditing(false)
       } else {
         throw new Error(response.data.message || "Failed to update webhook")
