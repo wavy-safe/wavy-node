@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Key, Webhook, BookOpen } from "lucide-react";
+import AlertsTable from "@/components/dashboard/alerts-table";
 
 export default function DashboardPage() {
   const handleDocumentationClick = () => {
@@ -20,6 +21,9 @@ export default function DashboardPage() {
           <BookOpen className="h-5 w-5" /> 
           Ver Documentación
         </Button>
+      </div>
+      <div>
+      <AlertsTable/>
       </div>
 
     </div>
