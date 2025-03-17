@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Key, Webhook, BookOpen } from "lucide-react";
-import AlertsTable from "@/components/dashboard/alerts-table";
+import TransactionsTable from "@/components/dashboard/alerts-table/alerts-table";
 
 export default function DashboardPage() {
   const handleDocumentationClick = () => {
@@ -23,7 +23,7 @@ export default function DashboardPage() {
         </Button>
       </div>
       <div>
-      <AlertsTable/>
+      <TransactionsTable/>
       </div>
 
     </div>

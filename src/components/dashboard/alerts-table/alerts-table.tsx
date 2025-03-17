@@ -1,63 +1,15 @@
+
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-
-const transactions = [
-  {
-    id: 1234,
-    amount: "$123,456 MXN",
-    user: "USER NAME",
-    address: "0x50...67a",
-    date: "30-04-00",
-    time: "00:00 h",
-    risk: "Alto",
-    regulation: "Artículo 17, fracción XVI Ley LFPIORPI",
-    recommendation: "Reportar operaciones sospechosas a la UIF",
-    status: "En revisión",
-    reportAction: "Generar",
-  },
-  {
-    id: 1234,
-    amount: "$123,456 MXN",
-    user: "USER NAME",
-    address: "0x50...67a",
-    date: "30-04-00",
-    time: "00:00 h",
-    risk: "Alto",
-    regulation: "Artículo 17, fracción XVI Ley LFPIORPI",
-    recommendation: "Reportar operaciones sospechosas a la UIF",
-    status: "En revisión",
-    reportAction: "Generar",
-  },
-  {
-    id: 1234,
-    amount: "$123,456 MXN",
-    user: "USER NAME",
-    address: "0x50...67a",
-    date: "30-04-00",
-    time: "00:00 h",
-    risk: "Alto",
-    regulation: "Artículo 17, fracción XVI Ley LFPIORPI",
-    recommendation: "Reportar operaciones sospechosas a la UIF",
-    status: "Cerrado",
-    reportAction: "Ver",
-  },
-  {
-    id: 1234,
-    amount: "$123,456 MXN",
-    user: "USER NAME",
-    address: "0x50...67a",
-    date: "30-04-00",
-    time: "00:00 h",
-    risk: "Alto",
-    regulation: "Artículo 17, fracción XVI Ley LFPIORPI",
-    recommendation: "Reportar operaciones sospechosas a la UIF",
-    status: "Cerrado",
-    reportAction: "Ver",
-  },
-];
+import { useTransactions } from "@/hooks/useTransactions";
 
 export default function TransactionsTable() {
+  const { transactions, loading, error } = useTransactions();
+
+  if (loading) return <p>Cargando transacciones...</p>;
+  if (error) return <p className="text-red-500">{error}</p>;
+
   return (
     <Card className="p-4 overflow-x-auto">
       <Table>
@@ -79,8 +31,8 @@ export default function TransactionsTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {transactions.map((tx, index) => (
-            <TableRow key={index}>
+          {transactions.map((tx) => (
+            <TableRow key={tx.id}>
               <TableCell>{tx.id}</TableCell>
               <TableCell>{tx.amount}</TableCell>
               <TableCell>
