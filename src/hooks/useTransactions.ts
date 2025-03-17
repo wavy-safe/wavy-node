@@ -1,4 +1,3 @@
-// src/hooks/useTransactions.ts
 import { useEffect, useState } from "react";
 import { fetchTransactions } from "@/api/transactions";
 import type { Transaction } from "@/types/useTransactions";

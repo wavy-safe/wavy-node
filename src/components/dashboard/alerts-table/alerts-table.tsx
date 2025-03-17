@@ -1,14 +1,14 @@
-
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useTransactions } from "@/hooks/useTransactions";
+import type { Transaction } from "@/types/useTransactions"
 
 export default function TransactionsTable() {
   const { transactions, loading, error } = useTransactions();
 
-  if (loading) return <p>Cargando transacciones...</p>;
-  if (error) return <p className="text-red-500">{error}</p>;
+  if (loading) return <p className="text-center">Cargando transacciones...</p>;
+  if (error) return <p className="text-red-500 text-center">{error}</p>;
 
   return (
     <Card className="p-4 overflow-x-auto">
@@ -31,7 +31,7 @@ export default function TransactionsTable() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {transactions.map((tx) => (
+          {transactions?.map((tx: Transaction) => (
             <TableRow key={tx.id}>
               <TableCell>{tx.id}</TableCell>
               <TableCell>{tx.amount}</TableCell>
@@ -57,7 +57,7 @@ export default function TransactionsTable() {
               </TableCell>
               <TableCell>
                 <Button variant="outline" size="sm">
-                  {tx.reportAction}
+                  {tx.reportAction || "N/A"}
                 </Button>
               </TableCell>
             </TableRow>
