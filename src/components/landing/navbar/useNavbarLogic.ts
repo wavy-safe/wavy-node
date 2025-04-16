@@ -4,7 +4,6 @@ import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useLogin, usePrivy } from "@privy-io/react-auth";
 
-// ✅ Tipado explícito (opcional pero recomendado)
 interface DropdownItem {
   label: string;
   href?: string;
@@ -33,15 +32,11 @@ export function useNavbarLogic() {
     router.push("/search");
   }, [authenticated, login, router]);
 
-  // ✅ Ahora cada item es un objeto con label y href
   const dropdownMenus: DropdownGroup[] = [
     {
       label: "For developers",
       items: [
-        { label: "API Documentation", href: "/docs" },
-        { label: "SDK Integration", href: "/sdk" },
-        { label: "Webhooks", href: "/webhooks" },
-        { label: "API Reference", href: "/reference" },
+        { label: "API Documentation", href: "" },
       ],
     },
     {
