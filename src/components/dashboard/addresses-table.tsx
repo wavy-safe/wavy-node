@@ -6,16 +6,9 @@ import { Input } from "@/components/ui/input"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Plus, Trash2 } from "lucide-react"
 import axiosInstance from "@/lib/auth"
+import type { Address } from "@/types/addressesTable"
+import {AddressesTableProps} from "@/types/addressesTable"
 
-interface Address {
-  id: number
-  address: string
-  description: string
-}
-
-interface AddressesTableProps {
-  apiKey: string
-}
 
 export function AddressesTable({ apiKey }: AddressesTableProps) {
   const [addresses, setAddresses] = useState<Address[]>([])
