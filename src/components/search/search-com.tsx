@@ -4,7 +4,6 @@ import { useState } from "react";
 import { SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import LastExploits from "./exploit";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ENS_REGEX, EVM_ADDRESS_REGEX } from "@/utils/regex";
@@ -29,7 +28,7 @@ export function Search() {
 			return;
 		}
 
-		setError(null); // Resetea el mensaje de error si todo está correcto
+		setError(null); 
 		router.push(`/search/address/${query}`);
 	};
 
@@ -72,8 +71,7 @@ export function Search() {
 					<Separator className="bg-gradient-to-r from-transparent to-transparent h-[1px]" />
 				</div>
 				{/* Resultados o Exploits */}
-				<div className="pt-6">
-					<LastExploits />
+				<div className="pt-6">	
 				</div>
 			</div>
 		</div>

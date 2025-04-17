@@ -12,7 +12,7 @@ const Hero = () => {
     <section
       className="relative flex items-center min-h-screen bg-cover bg-center overflow-hidden"
       style={{
-        backgroundImage: "url('/assets/wavybackground.png')", // ✅ asegúrate que el nombre es exacto
+        backgroundImage: "url('/assets/wavybackground.png')", 
       }}
     >
       <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
