@@ -2,7 +2,7 @@
 
 import { useState, FC } from "react";
 import { ChevronDown } from "lucide-react";
-import { TallyModal } from "@/components/landing/TallyModal"; // ✅ Importado
+import { TallyModal } from "@/components/landing/TallyModal"; 
 
 interface FAQProps {
   question: string;
@@ -41,7 +41,7 @@ const FAQ: FC<FAQProps> = ({ question, answer }) => {
 };
 
 const FaqSection: FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // ✅ Estado para el modal
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   return (
     <section className="bg-[#eaf6fc] py-24">
@@ -88,7 +88,6 @@ const FaqSection: FC = () => {
         </div>
       </div>
 
-      {/* ✅ Modal aquí */}
       <TallyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
