@@ -28,23 +28,6 @@ interface InflictedLaw {
   source?: string;
 }
 
-<<<<<<< HEAD
-interface Address {
-  id: number;
-  address: string;
-  description: string;
-  user_id: string;
-}
-
-interface Notification {
-  id: number;
-  user_id?: string;
-  tx_hash?: string;
-  chain_id: number;
-  address_id?: number;
-  inflicted_laws?: InflictedLaw[];
-  address?: string;
-=======
 interface Notification {
   id: number;
   userId?: string;
@@ -65,7 +48,6 @@ interface Notification {
     name: string;
   };
   timestamp?: string;
->>>>>>> landing-v2
 }
 
 function getRiskVariant(
@@ -85,42 +67,16 @@ export default function TransactionsTable() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-<<<<<<< HEAD
-
-=======
->>>>>>> landing-v2
   const [openReport, setOpenReport] = useState(false);
   const [reportContent, setReportContent] = useState<any>(null);
   const [reportLoading, setReportLoading] = useState(false);
 
   const fetchNotifications = async () => {
     try {
-<<<<<<< HEAD
-      const [notifRes, addrRes] = await Promise.all([
-        axiosInstance.get("/notifications"),
-        axiosInstance.get("/addresses"),
-      ]);
-
-      const addresses: Address[] = addrRes.data?.data || [];
-      const notificationsRaw: Notification[] = notifRes.data?.data || [];
-
-      const withWallets = notificationsRaw.map((n) => {
-        const found = addresses.find((a) => a.id === n.address_id);
-        return {
-          ...n,
-          address: found?.address || "—",
-        };
-      });
-
-      setNotifications(withWallets);
-    } catch (err) {
-      console.error("❌ Error fetching data:", err);
-=======
       const res = await axiosInstance.get("/notifications");
       setNotifications(res.data?.data || []);
     } catch (err) {
       console.error("❌ Error fetching notifications:", err);
->>>>>>> landing-v2
       setError("Error al cargar notificaciones");
     } finally {
       setLoading(false);
@@ -152,86 +108,6 @@ export default function TransactionsTable() {
 
   return (
     <>
-<<<<<<< HEAD
-      <Card className="p-6 shadow-xl rounded-2xl border bg-white dark:bg-zinc-950 overflow-x-auto">
-        <Table>
-          <TableHeader className="bg-muted/40">
-            <TableRow>
-              <TableHead className="text-xs text-zinc-400 uppercase tracking-widest">ID</TableHead>
-              <TableHead className="text-xs text-zinc-400 uppercase tracking-widest">Usuario</TableHead>
-              <TableHead className="text-xs text-zinc-400 uppercase tracking-widest">Wallet</TableHead>
-              <TableHead className="text-xs text-zinc-400 uppercase tracking-widest">TxHash</TableHead>
-              <TableHead className="text-xs text-zinc-400 uppercase tracking-widest">Riesgo</TableHead>
-              <TableHead className="text-xs text-zinc-400 uppercase tracking-widest">Leyes</TableHead>
-              <TableHead className="text-xs text-zinc-400 uppercase tracking-widest">Reporte</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {notifications.length > 0 ? (
-              notifications.map((n) => (
-                <TableRow key={n.id} className="hover:bg-muted/20 transition">
-                  <TableCell className="font-mono text-xs text-zinc-500">{n.id}</TableCell>
-                  <TableCell className="font-mono text-xs max-w-[180px] truncate text-zinc-600">
-                    {n.user_id || "—"}
-                  </TableCell>
-                  <TableCell className="font-mono text-xs text-primary">
-                    {n.address ? `${n.address.slice(0, 6)}...${n.address.slice(-4)}` : "—"}
-                  </TableCell>
-                  <TableCell className="font-mono text-xs text-muted-foreground">
-                    {n.tx_hash ? `${n.tx_hash.slice(0, 10)}...` : "—"}
-                  </TableCell>
-                  <TableCell className="space-x-1">
-                    {n.inflicted_laws?.length ? (
-                      n.inflicted_laws.map((law: InflictedLaw, i: number) => (
-                        <Badge
-                          key={i}
-                          variant={getRiskVariant(law.risk)}
-                          className="capitalize text-[10px]"
-                        >
-                          {law.risk}
-                        </Badge>
-                      ))
-                    ) : (
-                      "—"
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {n.inflicted_laws?.length ? (
-                      n.inflicted_laws.map((law: InflictedLaw, i: number) => (
-                        <div key={i} className="text-xs text-muted-foreground">
-                          {law.name}
-                        </div>
-                      ))
-                    ) : (
-                      "—"
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    {n.address && n.address !== "—" ? (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleOpenReport(n.address!)}
-                        className="text-xs px-3 py-1"
-                      >
-                        Ver
-                      </Button>
-                    ) : (
-                      "—"
-                    )}
-                  </TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={7} className="text-center py-4">
-                  No se encontraron notificaciones.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-=======
       <Card className="h-[calc(100vh-80px)] border shadow-xl rounded-2xl bg-white dark:bg-zinc-950 flex flex-col">
         <div className="overflow-y-auto flex-1">
           <Table className="min-w-[1100px]">
@@ -335,19 +211,14 @@ export default function TransactionsTable() {
             </TableBody>
           </Table>
         </div>
->>>>>>> landing-v2
       </Card>
 
       <Dialog open={openReport} onOpenChange={setOpenReport}>
         <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
           <DialogHeader>
-<<<<<<< HEAD
-            <DialogTitle className="text-lg font-semibold">Reporte de Wallet</DialogTitle>
-=======
             <DialogTitle className="text-lg font-semibold">
               Reporte de Wallet
             </DialogTitle>
->>>>>>> landing-v2
           </DialogHeader>
           <div className="text-sm font-mono whitespace-pre-wrap break-all">
             {reportLoading ? (
@@ -362,8 +233,4 @@ export default function TransactionsTable() {
       </Dialog>
     </>
   );
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> landing-v2
