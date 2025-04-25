@@ -15,9 +15,13 @@ export const TallyModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="relative w-full max-w-2xl bg-white p-6 rounded-lg shadow-lg">
-        <button onClick={onClose} className="absolute top-2 right-2 text-gray-500">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm px-4">
+      <div className="relative w-full max-w-2xl bg-white p-6 rounded-xl shadow-xl">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition"
+          aria-label="Close modal"
+        >
           ✕
         </button>
         <iframe
@@ -28,9 +32,9 @@ export const TallyModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () =
           marginHeight={0}
           marginWidth={0}
           title="Wait List"
-        ></iframe>
+          className="rounded-md border-none max-h-[80vh]"
+        />
       </div>
     </div>
   );
 };
-
