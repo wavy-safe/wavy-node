@@ -6,6 +6,7 @@ import Footer from "@/components/landing/Footer";
 import Navbar from "@/components/landing/navbar/Navbar";
 import FoundersSection from "@/components/landing/founders/FoundersSection";
 import FaqSection from "@/components/landing/faq/FaqSection";
+import CompaniesSection from "@/components/landing/CompaniesSection";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <VideoDemoSection />  
+      <CompaniesSection/>
       <FaqSection/>
       <Footer />
     </main>

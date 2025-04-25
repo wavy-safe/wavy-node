@@ -33,12 +33,12 @@ export function useNavbarLogic() {
   }, [authenticated, login, router]);
 
   const dropdownMenus: DropdownGroup[] = [
-    {
-      label: "For developers",
-      items: [
-        { label: "API Documentation", href: "" },
-      ],
-    },
+    // {
+    //   label: "For developers",
+    //   items: [
+    //     { label: "API Documentation", href: "" },
+    //   ],
+    // },
     {
       label: "For businesses",
       items: [

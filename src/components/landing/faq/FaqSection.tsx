@@ -2,6 +2,7 @@
 
 import { useState, FC } from "react";
 import { ChevronDown } from "lucide-react";
+import { TallyModal } from "@/components/landing/TallyModal"; // ✅ Importado
 
 interface FAQProps {
   question: string;
@@ -40,8 +41,10 @@ const FAQ: FC<FAQProps> = ({ question, answer }) => {
 };
 
 const FaqSection: FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false); // ✅ Estado para el modal
+
   return (
-    <section className="bg-gray-50 py-24">
+    <section className="bg-[#eaf6fc] py-24">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-4xl sm:text-5xl font-bold text-center text-gray-900 mb-6">
           Frequently Asked Questions
@@ -52,30 +55,41 @@ const FaqSection: FC = () => {
         <div className="space-y-5">
           <FAQ 
             question="What networks does Wavy Node currently support?"
-            answer="We are currently integrated with Ethereum, Arbitrum, Polygon, Optimism, and many more. Support for networks like Bitcoin is coming soon."
+            answer="We currently monitor Ethereum, Arbitrum, Celo, Optimism, Base, Polygon. We are constantly expanding our coverage and offer customized integration according to each client's stack."
           />
           <FAQ 
-            question="How do you detect if a wallet is malicious?"
-            answer="We use machine learning models and rule-based risk scoring powered by historical transactions, blacklisted wallets, and suspicious activity patterns."
+            question="Does it comply with local regulations in Latin America?"
+            answer="Yes. We adapt our reporting and risk criteria to the regulations in force in each country of the region where our clients operate."
           />
           <FAQ 
-            question="Can I integrate alerts into my platform?"
-            answer="Yes. We provide API endpoints that allow you to integrate alerts, reports, and wallet risk scoring directly into your exchange, wallet, or dApp."
+            question="How fast are alerts or reports generated?"
+            answer="Background reports and risk alerts are generated in real time, allowing agile decisions without operational friction."
           />
           <FAQ 
-            question="What kind of reports do you offer?"
-            answer="We generate detailed activity reports, high-risk interaction logs, AML risk scores, and wallet links to known exploits or sanctioned entities."
+            question="What level of customization do you offer in the reports?"
+            answer="You can adjust risk levels, regulatory criteria and report formats according to the needs of your legal, compliance or audit team."
           />
           <FAQ 
-            question="Do you comply with global standards like FATF?"
-            answer="Yes. Wavy Node is built based on FATF recommendations, adapted to decentralized environments. We support AML compliance in Web3 ecosystems, with a special focus on Latin America."
-          />
-          <FAQ 
-            question="Can I try the platform before integrating it?"
-            answer="Absolutely. You can request a personalized demo or create an account to explore our app using test data."
+            question="Can it be integrated with our current systems?"
+            answer="Yes, through a simple API to integrate directly into your payment flow, monitoring or compliance, as well as customizable dashboards."
           />
         </div>
+
+        <div className="mt-20 text-center">
+          <h3 className="text-xl sm:text-2xl font-medium text-gray-800 mb-6">
+            Learn how your team can automate compliance and mitigate risk in seconds.
+          </h3>
+          <button
+            onClick={() => setIsModalOpen(true)} 
+            className="mt-8 px-8 py-3 rounded-xl bg-gray-900 hover:bg-black text-white font-medium shadow-xl transition"
+          >
+            REQUEST A DEMO
+          </button>
+        </div>
       </div>
+
+      {/* ✅ Modal aquí */}
+      <TallyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </section>
   );
 };

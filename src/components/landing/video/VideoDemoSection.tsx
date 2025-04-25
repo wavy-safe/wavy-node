@@ -3,28 +3,24 @@
 import { FC } from "react";
 
 const features = [
-  "Automatic risk scoring per wallet",
-  "Real-time alerts via API",
-  "AI-generated reports, auditable and downloadable"
+  "Automated history and risk reports for wallets that interact with your business.",
+  "Real-time transaction verification aligned with local regulatory frameworks in Latam.",
+  "Time and effort savings for compliance and fraud prevention teams."
 ];
 
 const VideoDemoSection: FC = () => {
   return (
-    <section className="bg-white py-20">
+    <section className="bg-[#eaf6fc] py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-6">
-          Detect. Score. Alert. — In Seconds
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-16">
+          On-chain monitoring with local compliance.
         </h2>
-        <p className="text-lg sm:text-xl text-center text-gray-600 mb-16 leading-relaxed lg:whitespace-nowrap">
-        Discover how Wavy Node detects, scores, and reports malicious activity in real time — before it becomes a threat.
-        </p>
 
-
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Video */}
-          <div className="w-full lg:w-1/2">
+          <div>
             <video
-              className="w-full rounded-2xl shadow-2xl"
+              className="w-full rounded-2xl shadow-xl"
               autoPlay
               loop
               muted
@@ -37,12 +33,14 @@ const VideoDemoSection: FC = () => {
             </video>
           </div>
 
-          {/* Feature list */}
-          <div className="w-full lg:w-1/2 space-y-8">
+          {/* Features */}
+          <div className="space-y-10">
             {features.map((item, idx) => (
               <div key={idx} className="flex items-start gap-4">
-                <div className="w-2.5 h-2.5 mt-2 rounded-full bg-black" />
-                <p className="text-lg sm:text-xl text-gray-800 leading-relaxed">{item}</p>
+                <div className="mt-2 w-2.5 h-2.5 bg-gray-900 rounded-full flex-shrink-0" />
+                <p className="text-lg sm:text-xl text-gray-800 leading-relaxed">
+                  {item}
+                </p>
               </div>
             ))}
           </div>
