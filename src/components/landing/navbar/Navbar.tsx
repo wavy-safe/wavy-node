@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
+      <nav className="fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
             {/* Logo */}
@@ -28,12 +28,14 @@ export default function Navbar() {
                 width={32}
                 height={32}
                 className="h-8 w-8"
+                priority
               />
               <span className="ml-2 text-base font-semibold text-[#1A2E44] sm:text-xl">
                 Wavy Node
               </span>
             </div>
 
+            {/* Desktop Navigation */}
             <div className="hidden md:flex items-center">
               <div className="flex items-center space-x-8 bg-gray-100/80 rounded-full px-6 py-2 backdrop-blur-sm">
                 {dropdownMenus.map((menu) => (
@@ -57,8 +59,15 @@ export default function Navbar() {
                 </Button>
               </div>
             </div>
+
+            {/* Mobile Nav */}
+            <div className="md:hidden flex items-center">
+              <Button size="sm" onClick={loginOrRedirect} className="text-sm">
+                Demo
+              </Button>
+            </div>
           </div>
-        </div>
+        </div>  
       </nav>
 
       <TallyModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

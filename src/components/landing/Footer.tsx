@@ -68,7 +68,7 @@ export default function Footer() {
             className="transition-opacity hover:opacity-80"
           >
             <img
-              src="https://drpc.org/images/external/powered-by-drpc-light.svg"
+              src="https://drpc.org/images/external/powered-by-drpc-dark.svg"
               alt="Powered by dRPC"
               className="w-[218px] h-[54px]"
             />
