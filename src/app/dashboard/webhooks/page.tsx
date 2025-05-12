@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { WebhookSetup } from "@/components/dashboard/webhooks-setup"
 import { WebhookUrl } from "@/components/dashboard/webhook-url"
 import { AddressesTable } from "@/components/dashboard/addresses-table"
+import { WebhookTest } from "@/components/dashboard/test-webhooks"
 import axiosInstance from "@/lib/auth"
 
 export default function WebhooksPage() {
@@ -42,7 +43,13 @@ export default function WebhooksPage() {
   return (
     <div className="w-full flex justify-center px-4 py-8">
       <div className="w-full max-w-5xl space-y-6">
-        <WebhookUrl url={webhook} baseUrl={baseUrl} apiKey={apiKey} onUpdate={handleUpdateWebhook} />
+        <WebhookUrl
+          url={webhook}
+          baseUrl={baseUrl}
+          apiKey={apiKey}
+          onUpdate={handleUpdateWebhook}
+        />
+        <WebhookTest url={webhook} />
         <AddressesTable apiKey={apiKey} />
       </div>
     </div>
