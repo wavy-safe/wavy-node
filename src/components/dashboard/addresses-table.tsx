@@ -3,9 +3,22 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table"
 import { Plus, Trash2 } from "lucide-react"
 import axiosInstance from "@/lib/auth"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent
+} from "@/components/ui/card"
 
 interface Address {
   id: number
@@ -59,8 +72,7 @@ export function AddressesTable({ apiKey }: AddressesTableProps) {
         if (response.data.data) {
           setAddresses((prev) => [...prev, response.data.data])
         } else {
-          console.warn("API returned success but no data, refetching addresses...")
-          fetchAddresses() 
+          fetchAddresses()
         }
         setNewAddress("")
         setError(null)
@@ -87,61 +99,70 @@ export function AddressesTable({ apiKey }: AddressesTableProps) {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-2">
-        <Input
-          value={newAddress}
-          onChange={(e) => setNewAddress(e.target.value)}
-          placeholder="Enter wallet address..."
-          className="flex-1"
-        />
-        <Button className="bg-primary hover:bg-primary/90" onClick={handleAddAddress} disabled={adding}>
-          <Plus className="mr-2 h-4 w-4" />
-          {adding ? "Adding..." : "Add"}
-        </Button>
-      </div>
+    <div className="flex items-center justify-center w-full px-4 mt-10">
+      <Card className="w-full max-w-5xl shadow-lg border border-gray-200 dark:border-gray-700 rounded-2xl">
+        <CardHeader>
+          <CardTitle className="text-xl text-center font-semibold">
+            Manage allowed addresses
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="flex items-center gap-3">
+            <Input
+              value={newAddress}
+              onChange={(e) => setNewAddress(e.target.value)}
+              placeholder="Enter wallet address..."
+              className="flex-1 h-11 text-base"
+            />
+            <Button onClick={handleAddAddress} className="h-11 text-base px-6" disabled={adding}>
+              <Plus className="mr-2 h-4 w-4" />
+              {adding ? "Adding..." : "Add"}
+            </Button>
+          </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+          {error && <p className="text-red-500 text-sm">{error}</p>}
 
-      <div className="rounded-lg border border-border bg-card/50 backdrop-blur overflow-hidden">
-        <Table>
-          <TableHeader>
-            <TableRow className="hover:bg-transparent">
-              <TableHead>ID</TableHead>
-              <TableHead>Wallet Address</TableHead>
-              <TableHead>Description</TableHead>
-              <TableHead className="w-[100px]">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {addresses.length > 0 ? (
-              addresses.map((address) => (
-                <TableRow key={address.id} className="hover:bg-transparent">
-                  <TableCell className="font-mono text-muted-foreground">{address.id}</TableCell>
-                  <TableCell className="text-muted-foreground">{address.address}</TableCell>
-                  <TableCell className="text-muted-foreground">{address.description}</TableCell>
-                  <TableCell>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleDeleteAddress(address.id)}
-                      className="hover:bg-destructive/10 hover:text-destructive"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </TableCell>
+          <div className="rounded-lg border border-border bg-card/50 backdrop-blur overflow-y-auto max-h-[300px]">
+            <Table>
+              <TableHeader>
+                <TableRow className="hover:bg-transparent">
+                  <TableHead>ID</TableHead>
+                  <TableHead>Wallet Address</TableHead>
+                  <TableHead>Description</TableHead>
+                  <TableHead className="w-[100px] text-center">Actions</TableHead>
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={4} className="text-center py-4">
-                  No addresses found.
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </div>
+              </TableHeader>
+              <TableBody>
+                {addresses.length > 0 ? (
+                  addresses.map((address) => (
+                    <TableRow key={address.id} className="hover:bg-transparent">
+                      <TableCell className="font-mono text-muted-foreground">{address.id}</TableCell>
+                      <TableCell className="text-muted-foreground">{address.address}</TableCell>
+                      <TableCell className="text-muted-foreground">{address.description}</TableCell>
+                      <TableCell className="text-center">
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => handleDeleteAddress(address.id)}
+                          className="hover:bg-destructive/10 hover:text-destructive"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={4} className="text-center py-4">
+                      No addresses found.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   )
 }
