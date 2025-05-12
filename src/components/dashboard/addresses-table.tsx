@@ -29,6 +29,9 @@ interface Address {
 interface AddressesTableProps {
   apiKey: string
 }
+import type { Address } from "@/types/addressesTable"
+import {AddressesTableProps} from "@/types/addressesTable"
+
 
 export function AddressesTable({ apiKey }: AddressesTableProps) {
   const [addresses, setAddresses] = useState<Address[]>([])

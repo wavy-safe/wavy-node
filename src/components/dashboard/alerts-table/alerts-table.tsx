@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -18,6 +18,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+<<<<<<< HEAD
 import axiosInstance from "@/lib/auth";
 
 interface InflictedLaw {
@@ -82,26 +83,25 @@ export default function TransactionsTable() {
       setLoading(false);
     }
   };
+=======
+import { useTransactions } from "./useTransactions";
+
+export default function TransactionsTable() {
+  const {
+    notifications,
+    error,
+    loading,
+    reportContent,
+    reportLoading,
+    openReport,
+    handleOpenReport,
+    setOpenReport,
+  } = useTransactions();
+>>>>>>> alerts
 
   useEffect(() => {
-    fetchNotifications();
-    const interval = setInterval(fetchNotifications, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const handleOpenReport = async (walletAddress: string) => {
-    setOpenReport(true);
-    setReportLoading(true);
-    try {
-      const res = await axiosInstance.get(`/wallets/${walletAddress}/report`);
-      setReportContent(res.data?.data || "Reporte no disponible");
-    } catch (err) {
-      console.error("❌ Error al cargar reporte:", err);
-      setReportContent("Error al cargar reporte.");
-    } finally {
-      setReportLoading(false);
-    }
-  };
+    console.log("🔍 Notificaciones:", notifications);
+  }, [notifications]);
 
   if (loading) return <p className="text-center">Cargando notificaciones...</p>;
   if (error) return <p className="text-red-500 text-center">{error}</p>;
@@ -129,7 +129,11 @@ export default function TransactionsTable() {
                 notifications.map((n) => (
                   <TableRow key={n.id} className="hover:bg-muted/20 transition">
                     <TableCell className="font-mono text-xs text-muted-foreground">
+<<<<<<< HEAD
                       {n.tx_hash ? `${n.tx_hash.slice(0, 10)}...` : "—"}
+=======
+                      {n.txHash ? `${n.txHash.slice(0, 10)}...` : "—"}
+>>>>>>> alerts
                     </TableCell>
                     <TableCell className="text-xs font-mono">
                       {n.amount?.value !== undefined
@@ -160,11 +164,25 @@ export default function TransactionsTable() {
                         : "—"}
                     </TableCell>
                     <TableCell className="space-x-1">
+<<<<<<< HEAD
                       {n.inflicted_laws?.length ? (
                         n.inflicted_laws.map((law, i) => (
                           <Badge
                             key={i}
                             variant={getRiskVariant(law.risk)}
+=======
+                      {n.inflictedLaws?.length ? (
+                        n.inflictedLaws.map((law, i) => (
+                          <Badge
+                            key={i}
+                            variant={
+                              law.risk === "high"
+                                ? "destructive"
+                                : law.risk === "warn"
+                                ? "secondary"
+                                : "default"
+                            }
+>>>>>>> alerts
                             className="capitalize text-[10px]"
                           >
                             {law.risk}
@@ -175,8 +193,13 @@ export default function TransactionsTable() {
                       )}
                     </TableCell>
                     <TableCell>
+<<<<<<< HEAD
                       {n.inflicted_laws?.length ? (
                         n.inflicted_laws.map((law, i) => (
+=======
+                      {n.inflictedLaws?.length ? (
+                        n.inflictedLaws.map((law, i) => (
+>>>>>>> alerts
                           <div key={i} className="text-xs text-muted-foreground">
                             {law.name}
                           </div>
@@ -234,3 +257,7 @@ export default function TransactionsTable() {
     </>
   );
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> alerts
