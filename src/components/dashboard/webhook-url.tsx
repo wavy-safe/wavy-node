@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Pencil, Trash } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -25,33 +25,33 @@ export function WebhookUrl({ baseUrl, apiKey, onUpdate }: WebhookUrlProps) {
   const [webhookId, setWebhookId] = useState<number | null>(null)
   const [isFetching, setIsFetching] = useState(true)
 
-  useEffect(() => {
-    const fetchWebhook = async () => {
-      setIsFetching(true)
-      try {
-        const response = await axiosInstance.get(`/webhooks?apiKey=${apiKey}`)
-        if (response.data.success && response.data.data.length > 0) {
-          const webhook = response.data.data[0]
-          setWebhookId(webhook.id)
-          setUrl(webhook.url)
-          setSecret(webhook.secret || "")
-          setOriginalUrl(webhook.url)
-          setOriginalSecret(webhook.secret || "")
-        } else {
-          setWebhookId(null)
-          setUrl(null)
-          setSecret(null)
-        }
-      } catch (err) {
-        console.error("Error fetching webhook:", err)
-        setError("Failed to load webhook")
-      } finally {
-        setIsFetching(false)
+  const fetchWebhook = useCallback(async () => {
+    setIsFetching(true)
+    try {
+      const response = await axiosInstance.get(`/webhooks?apiKey=${apiKey}`)
+      if (response.data.success && response.data.data.length > 0) {
+        const webhook = response.data.data[0]
+        setWebhookId(webhook.id)
+        setUrl(webhook.url)
+        setSecret(webhook.secret || "")
+        setOriginalUrl(webhook.url)
+        setOriginalSecret(webhook.secret || "")
+      } else {
+        setWebhookId(null)
+        setUrl(null)
+        setSecret(null)
       }
+    } catch (err) {
+      console.error("Error fetching webhook:", err)
+      setError("Failed to load webhook")
+    } finally {
+      setIsFetching(false)
     }
-
-    fetchWebhook()
   }, [apiKey])
+
+  useEffect(() => {
+    fetchWebhook()
+  }, [fetchWebhook])
 
   const handleUpdate = async () => {
     if (!url?.trim()) {
@@ -147,7 +147,7 @@ export function WebhookUrl({ baseUrl, apiKey, onUpdate }: WebhookUrlProps) {
                   <div className="p-4 rounded-md bg-yellow-50 border border-yellow-300 text-sm text-yellow-800 space-y-2">
                     <p>There is currently a secret configured for this webhook.</p>
                     <p className="text-xs text-muted-foreground">
-                      If you've lost or forgotten this secret, you can change it. Just be aware that any services using the current secret will need to update.
+                      If you&apos;ve lost or forgotten this secret, you can change it. Just be aware that any services using the current secret will need to update.
                     </p>
                     <Button
                       size="sm"
@@ -183,7 +183,7 @@ export function WebhookUrl({ baseUrl, apiKey, onUpdate }: WebhookUrlProps) {
                 <span className="font-mono text-muted-foreground">{originalUrl}</span>
                 {originalSecret && (
                   <span className="text-muted-foreground text-sm flex items-center gap-1">
-                    🔐 Secret configured
+                     Secret configured
                   </span>
                 )}
                 <div className="flex gap-2 mt-2">

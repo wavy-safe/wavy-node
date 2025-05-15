@@ -20,18 +20,7 @@ import {
   CardContent
 } from "@/components/ui/card"
 
-interface Address {
-  id: number
-  address: string
-  description: string
-}
-
-interface AddressesTableProps {
-  apiKey: string
-}
-import type { Address } from "@/types/addressesTable"
-import {AddressesTableProps} from "@/types/addressesTable"
-
+import type { Address, AddressesTableProps } from "@/types/addressesTable"
 
 export function AddressesTable({ apiKey }: AddressesTableProps) {
   const [addresses, setAddresses] = useState<Address[]>([])
