@@ -18,72 +18,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-<<<<<<< HEAD
-import axiosInstance from "@/lib/auth";
-
-interface InflictedLaw {
-  name: string;
-  description: string;
-  risk: string;
-  country: string;
-  source?: string;
-}
-
-interface Notification {
-  id: number;
-  userId?: string;
-  tx_hash?: string;
-  chain_id: number;
-  address?: {
-    id: number;
-    address: string;
-    description: string;
-  };
-  inflicted_laws?: InflictedLaw[];
-  amount?: {
-    value: number;
-    usd: number;
-  };
-  token?: {
-    symbol: string;
-    name: string;
-  };
-  timestamp?: string;
-}
-
-function getRiskVariant(
-  risk: string
-): "default" | "secondary" | "destructive" | "outline" {
-  switch (risk) {
-    case "high":
-      return "destructive";
-    case "warn":
-      return "secondary";
-    default:
-      return "default";
-  }
-}
-
-export default function TransactionsTable() {
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [openReport, setOpenReport] = useState(false);
-  const [reportContent, setReportContent] = useState<any>(null);
-  const [reportLoading, setReportLoading] = useState(false);
-
-  const fetchNotifications = async () => {
-    try {
-      const res = await axiosInstance.get("/notifications");
-      setNotifications(res.data?.data || []);
-    } catch (err) {
-      console.error("❌ Error fetching notifications:", err);
-      setError("Error al cargar notificaciones");
-    } finally {
-      setLoading(false);
-    }
-  };
-=======
 import { useTransactions } from "./useTransactions";
 
 export default function TransactionsTable() {
@@ -97,7 +31,6 @@ export default function TransactionsTable() {
     handleOpenReport,
     setOpenReport,
   } = useTransactions();
->>>>>>> alerts
 
   useEffect(() => {
     console.log("🔍 Notificaciones:", notifications);
@@ -129,11 +62,7 @@ export default function TransactionsTable() {
                 notifications.map((n) => (
                   <TableRow key={n.id} className="hover:bg-muted/20 transition">
                     <TableCell className="font-mono text-xs text-muted-foreground">
-<<<<<<< HEAD
-                      {n.tx_hash ? `${n.tx_hash.slice(0, 10)}...` : "—"}
-=======
                       {n.txHash ? `${n.txHash.slice(0, 10)}...` : "—"}
->>>>>>> alerts
                     </TableCell>
                     <TableCell className="text-xs font-mono">
                       {n.amount?.value !== undefined
@@ -164,13 +93,6 @@ export default function TransactionsTable() {
                         : "—"}
                     </TableCell>
                     <TableCell className="space-x-1">
-<<<<<<< HEAD
-                      {n.inflicted_laws?.length ? (
-                        n.inflicted_laws.map((law, i) => (
-                          <Badge
-                            key={i}
-                            variant={getRiskVariant(law.risk)}
-=======
                       {n.inflictedLaws?.length ? (
                         n.inflictedLaws.map((law, i) => (
                           <Badge
@@ -182,7 +104,6 @@ export default function TransactionsTable() {
                                 ? "secondary"
                                 : "default"
                             }
->>>>>>> alerts
                             className="capitalize text-[10px]"
                           >
                             {law.risk}
@@ -193,13 +114,8 @@ export default function TransactionsTable() {
                       )}
                     </TableCell>
                     <TableCell>
-<<<<<<< HEAD
-                      {n.inflicted_laws?.length ? (
-                        n.inflicted_laws.map((law, i) => (
-=======
                       {n.inflictedLaws?.length ? (
                         n.inflictedLaws.map((law, i) => (
->>>>>>> alerts
                           <div key={i} className="text-xs text-muted-foreground">
                             {law.name}
                           </div>
@@ -257,7 +173,3 @@ export default function TransactionsTable() {
     </>
   );
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> alerts
