@@ -26,7 +26,7 @@ export function WebhookSetup({ apiKey, onSave }: WebhookSetupProps) {
   const handleSave = async () => {
     if (!url.trim()) {
       setError("Webhook URL cannot be empty")
-      return
+      return  
     }
 
     setLoading(true)

@@ -15,23 +15,27 @@ interface Address {
   description: string;
 }
 
+interface Token {
+  symbol: string;
+  name: string;
+  address: string;
+  decimals: number;
+}
+
 interface Notification {
   id: number;
   userId?: string;
   txHash?: string;
   chainId: number;
-  address?: Address;
   addressId?: number;
+  address?: Address;
   inflictedLaws?: InflictedLaw[];
   amount?: {
     value: number;
     usd: number;
   };
-  token?: {
-    symbol: string;
-    name: string;
-  };
-  timestamp?: string;
+  token?: Token;
+  date?: string;
 }
 
 export function useTransactions() {
@@ -48,13 +52,13 @@ export function useTransactions() {
     txHash: raw.txHash ?? raw.tx_hash,
     chainId: raw.chainId ?? raw.chain_id,
     addressId: raw.addressId ?? raw.address_id,
-    address: raw.address, // se reemplazará si no viene
+    address: raw.address,
     amount: {
-      value: raw.amount?.value ?? raw.amount?.token ?? 0,
-      usd: raw.amount?.usd ?? 0,
+      value: raw.value ?? 0,
+      usd: raw.usd ?? 0,
     },
     token: raw.token,
-    timestamp: raw.timestamp,
+    date: raw.date,
     inflictedLaws: raw.inflictedLaws ?? raw.inflicted_laws ?? [],
   });
 
@@ -82,7 +86,7 @@ export function useTransactions() {
 
       setNotifications(normalized);
     } catch (err) {
-      console.error("❌ Error fetching notifications o addresses:", err);
+      console.error("Error fetching notifications o addresses:", err);
       setError("Error al cargar notificaciones");
     } finally {
       setLoading(false);
@@ -96,7 +100,7 @@ export function useTransactions() {
       const res = await axiosInstance.get(`/wallets/${walletAddress}/report`);
       setReportContent(res.data?.data || "Reporte no disponible");
     } catch (err) {
-      console.error("❌ Error al cargar reporte:", err);
+      console.error("Error al cargar reporte:", err);
       setReportContent("Error al cargar reporte.");
     } finally {
       setReportLoading(false);

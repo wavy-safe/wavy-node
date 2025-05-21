@@ -11,14 +11,9 @@ import {
 } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useTransactions } from "./useTransactions";
+import { WalletReportDialog } from "@/components/dashboard/alerts-table/WalletReportDialog";
 
 export default function TransactionsTable() {
   const {
@@ -33,10 +28,9 @@ export default function TransactionsTable() {
   } = useTransactions();
 
   useEffect(() => {
-    console.log("🔍 Notificaciones:", notifications);
+    console.log("Notificaciones:", notifications);
   }, [notifications]);
 
-  if (loading) return <p className="text-center">Cargando notificaciones...</p>;
   if (error) return <p className="text-red-500 text-center">{error}</p>;
 
   return (
@@ -85,12 +79,12 @@ export default function TransactionsTable() {
                         : "—"}
                     </TableCell>
                     <TableCell className="text-xs font-mono">
-                      {n.timestamp
-                        ? new Date(n.timestamp).toLocaleString("es-MX", {
+                      {n.date
+                        ? new Date(n.date).toLocaleString("es-MX", {
                             dateStyle: "short",
                             timeStyle: "short",
                           })
-                        : "—"}
+                        : "Pendiente"}
                     </TableCell>
                     <TableCell className="space-x-1">
                       {n.inflictedLaws?.length ? (
@@ -152,24 +146,12 @@ export default function TransactionsTable() {
         </div>
       </Card>
 
-      <Dialog open={openReport} onOpenChange={setOpenReport}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-lg font-semibold">
-              Reporte de Wallet
-            </DialogTitle>
-          </DialogHeader>
-          <div className="text-sm font-mono whitespace-pre-wrap break-all">
-            {reportLoading ? (
-              <p>Cargando reporte...</p>
-            ) : typeof reportContent === "string" ? (
-              <p>{reportContent}</p>
-            ) : (
-              <pre>{JSON.stringify(reportContent, null, 2)}</pre>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+      <WalletReportDialog
+        open={openReport}
+        onOpenChange={setOpenReport}
+        loading={reportLoading}
+        content={reportContent}
+      />
     </>
   );
 }
